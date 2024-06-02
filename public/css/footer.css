@@ -1,0 +1,26 @@
+.footer{
+    position: absolute;
+    left: 0px; top: 870px;
+    display: flex;
+    flex-direction: row;
+    width: 1870px; height: 70px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    padding: 8px;
+    padding-left: 5px ;
+}
+
+.footer h2{
+    padding-left: 10px;
+    padding-right: 30px;
+}
+
+#clock {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+    padding-top: 20px;
+    
+    border-radius: 5px;
+}

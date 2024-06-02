@@ -1,0 +1,260 @@
+/*Man hinh chinh*/
+#Screen_HOME{
+    position: absolute;
+    left: 215px; top: 11px;
+    display: flex;
+    width: 1650px; height: 834px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    padding: 8px;
+}
+
+/*Nút nhan sửa*/
+#btt_Edit{
+    border: none;
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    width: 80px; height: 40px;
+    left: 250px; top: 400px;
+}
+
+/*Nút nhãn Lưu*/
+#btt_Save {
+    border: none;
+    background-color: rgb(2, 2, 2);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    width: 80px; height: 40px;
+    left: 250px; top: 400px;
+}
+.col-1{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.col-1 h1{
+    font-size: 80px;
+    padding-left: 20px;
+    top: -50px;
+    background-image: url('https://online.hcmute.edu.vn/Portlets/UIS_MySpace/Images/SPKT.jpg');
+    background-clip: text;
+    color: transparent;
+    background-color: white;
+}
+
+.col-1 h4{
+    font-size: 30px;
+    padding-left: 20px;
+    padding-top: 70px;
+    top: 50px;
+}
+
+#background_img{
+    position: absolute;
+    left: 1050px; top: 250px;
+    display: flex;
+    width: 550px; height: 550px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    padding: 8px;
+    z-index: 2;
+}
+
+.image-container_2 {
+    position: relative;
+}
+
+.image-container_2 img {
+    position: absolute;
+    top: 250px; /* Điều chỉnh theo yêu cầu của bạn */
+    left: 140px; /* Điều chỉnh theo yêu cầu của bạn */
+    z-index: 3;
+}
+
+.khungname{
+    position: absolute;
+    left: 70px; top: 400px;
+    display: flex;
+    width: 200px; height: 80px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    
+}
+
+.khungimg{
+    position: absolute;
+    left: 25px; top: 325px;
+    display: flex;
+    width: 100px; height: 100px;
+    border-radius: 100%;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    
+}
+
+.khungnote{
+    position: absolute;
+    left: 128px; top: 340px;
+    display: flex;
+    width: 100px; height: 30px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.khungname_B{
+    position: absolute;
+    left: 70px; top: 700px;
+    display: flex;
+    width: 200px; height: 80px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    
+}
+
+.khungimg_B{
+    position: absolute;
+    left: 25px; top: 625px;
+    display: flex;
+    width: 100px; height: 100px;
+    border-radius: 100%;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    
+}
+
+.khungnote_B{
+    position: absolute;
+    left: 128px; top: 640px;
+    display: flex;
+    width: 100px; height: 30px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.khungname_T{
+    position: absolute;
+    left: 420px; top: 700px;
+    display: flex;
+    width: 200px; height: 80px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    
+}
+
+.khungimg_T{
+    position: absolute;
+    left: 375px; top: 625px;
+    display: flex;
+    width: 100px; height: 100px;
+    border-radius: 100%;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    
+}
+
+.khungnote_T{
+    position: absolute;
+    left: 478px; top: 640px;
+    display: flex;
+    width: 100px; height: 30px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.khungname_H{
+    position: absolute;
+    left: 770px; top: 700px;
+    display: flex;
+    width: 200px; height: 80px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    
+}
+
+.khungimg_H{
+    position: absolute;
+    left: 725px; top: 625px;
+    display: flex;
+    width: 100px; height: 100px;
+    border-radius: 100%;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    
+}
+
+.khungnote_H{
+    position: absolute;
+    left: 828px; top: 640px;
+    display: flex;
+    width: 100px; height: 30px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.khungname_Hs{
+    position: relative;
+    position: absolute;
+    left: 1150px; top: 0px;
+    display: flex;
+    width: 500px; height: 834px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 0px 22px 22px 0px;
+    justify-content: center;
+    padding: 8px;
+    background-image: url('https://ssmb.in/wp-content/uploads/2022/01/Multi-Level-Car-Parking.jpeg');
+    background-size: contain;
+}

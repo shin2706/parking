@@ -1,0 +1,625 @@
+
+<html>
+    <head>
+        <!-- ////////////// CHƯƠNG TRÌNH HỆ THỐNG //////////////  -->
+        <script src = "jquery.js"></script>
+        <script src="js/FC1_Common.js"></script>
+        <script src = "socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("localhost:3000") // IP tĩnh (hoặc IP động, hoặc localhost)
+        </script>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Web Server Parking</title>
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/screen_control_panel.css">
+        <link rel="stylesheet" href="css/screen_home.css">
+        <link rel="stylesheet" href="css/screen_search.css">
+        <link rel="stylesheet" href="css/screen_status.css">
+        <link rel="stylesheet" href="css/screen_summary_information.css">
+        <link rel="stylesheet" href="css/slidebar.css">
+        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/screen_client.css">
+        <script src = "js/jquery-3.6.0.min.js"></script>
+        <script src = "js/Screen_csdl.js"></script>
+        <script src = "js/FC2_UserManagement.js"></script>
+        <script src = "js/FC3_Excel_Export.js"></script>
+        <script src = "js/plotly-2.8.3.min.js"></script>
+        <script src = "js/FileSaver.js"></script>
+            <!-- ////////////// CHƯƠNG TRÌNH ĐĂNG NHẬP HỆ THỐNG //////////////   -->
+        <div id="div_login">
+            <div id="id01" class="modal">
+                <form id = "modal-content1" class="modal-content animate">
+                <div id = "img_container" class="imgcontainer">
+                    <span id = "closebtt" onclick="document.getElementById('id01').style.display='none'; logout();" class="close" title="Close Modal">&times;</span>
+                    <img decoding="async" id = "img_avatar" src="images/user.png" alt="Avatar" class="avatar">
+                </div>
+
+                <div id = "log_container" class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input id = "inputuser" type="text" placeholder="Enter Username" name="uname" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input id = "inputpass" type="password" placeholder="Enter Password" name="psw" required>
+
+                    <button id = "bttlogin1" type="button" onclick="login();">Login</button>
+                    <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
+
+                <div id = "login_container" class="container" style="background-color:#f1f1f1">
+                    <button id = "bttcancle" type="button" onclick="document.getElementById('id01').style.display='none'; logout();" class="cancelbtn">Cancel</button>
+                    <span id = "psw" class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+                </form>
+            </div>
+        </div>
+   
+    </head>
+
+    <body>
+        <div id = "slidebar">
+            <div class="image-container">
+                <img src="images\school\spkt.png" alt="" width="190" height="250" >
+            </div>
+            <div class="image-container_1">
+                <img src="images\school\khoa.jpg" alt="" width="190" height="150" >
+            </div>
+
+            <!--Nút chon màn hình Summary_Information-->
+            <button id="btt_Screen_Summary_Information" onclick="
+                fn_ScreenChange('Screen_Summary_Information','Screen_HOME','Screen_Control_Panel','Screen_Status','Screen_Search');
+            ">Summary Information</button>  
+
+            <!--Nut chọn màn hình Control_Panel-->
+            <button id="btt_Screen_Control_Panel" onclick="
+                fn_Alarm_Show();
+                fn_ScreenChange( 'Screen_Control_Panel', 'Screen_Client', 'Screen_HOME', 'Screen_Summary_Information','Screen_Status','Screen_Search');
+            ">Control Panel</button>
+
+            <button id="btt_Screen_Status" onclick="
+                fn_ScreenChange( 'Screen_Status', 'Screen_Client','Screen_HOME', 'Screen_Summary_Information','Screen_Control_Panel','Screen_Search');
+            ">Status</button>
+
+            <button id="btt_Screen_Search" onclick="
+                fn_Table01_SQL_Show();
+                fn_ScreenChange( 'Screen_Search','Screen_Client','Screen_Status', 'Screen_HOME', 'Screen_Summary_Information','Screen_Control_Panel');
+                
+            ">Search</button>
+
+            <button id="btt_Screen_Login" onclick="
+                login();
+                window.location.reload();
+            ">Login</button>
+
+            <button id="btt_Screen_Logout" onclick="
+                logout();
+            ">Logout</button>
+
+            <button id="btt_Screen_Client" onclick="
+                fn_ScreenChange('Screen_Client', 'Screen_HOME', 'Screen_Summary_Information', 'Screen_Control_Panel','Screen_Status','Screen_Search');
+            ">Client</button>
+
+            <!--Nút chon man hình chính-->
+            <button id="btt_Screen_HOME" onclick="
+                fn_ScreenChange('Screen_HOME', 'Screen_Client','Screen_Summary_Information', 'Screen_Control_Panel','Screen_Status','Screen_Search');
+            ">HOME</button>
+            
+            
+
+        </div>
+
+        <div id="Screen_Status">
+            <!--REALTIME TREND-->
+              <script>
+                  var data_trend = 0;
+                  socket.on("SO_CO_XE_W",function(data){
+                      data_trend = data;
+                  });
+                  Plotly.newPlot('Screen_Status',[{
+                      y:[data_trend],
+                      type:'line'
+                  }]);
+                      var cnt = 0;
+                  setInterval(function(){
+                      Plotly.extendTraces('Screen_Status',{ y:[[data_trend]]}, [0]);
+                      cnt++;
+                      if(cnt > 300) {
+                          Plotly.relayout('Screen_Status',{
+                              xaxis: {
+                                  range: [cnt-300,cnt]
+                              }
+                          });
+                      }
+                  },1000);
+              </script>
+          </div>
+        
+          
+
+        <div id="Screen_Summary_Information">
+            <div class="container">
+                <div class="item" >
+                    <div class="layer" >
+                        <h3>Title</h3>
+                            <img class="imgb" src="images\school\image-removebg-preview.png" alt="" width="300" height="250">
+                        <p>
+                            Có 4 tầng. <br> Có 1 ngõ vào và 1 ngõ ra. <br> Có tổng cộng 24 chỗ đậu xe. <br> Mỗi tầng đề có cảm biến xác định tầng. <br> 
+                            Dùng động cơ DC để xác định mỗi tầng. <br> Dùng động cơ DC để đưa đòn tay để lấy và trả xe. 
+                            <br> Dùng Stepmotor để xác định các góc để đậu xe và lấy xe.
+                        </p>
+                    </div>
+                    <h4>Step 01</h4>
+                </div>     
+                <div class="item" >
+                    <div class="layer" >
+                        <h3>Title</h3>
+                        <p>
+                            Hệ thống còn dùng tính năng quẹt thẻ nhận diện biển số, màu xe và lưu dữ liệu về excel.
+                        </p>
+                    </div>
+                    <h4>Step 2</h4>
+                </div>
+                <div class="item" >
+                    <div class="layer" >
+                        <h3>Title</h3>
+                        <p>
+                           Hệ thống còn có Scada để giám sát, bảo trì và điều khiển hệ thống. <br>
+                           Hệ thống có thể điều khiển và giám sát qua internet bằng Web-Server.                             
+                        </p>
+                    </div>
+                    <h4>Step 03</h4>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="Screen_Control_Panel">
+            <div class="h1">  
+                <button id="HMI_JOG_1_Servo_Tlug-btn" class="btn btn-start" onmousedown="socket.emit('Client-send-start',true);"  onmouseup="socket.emit('Client-send-start',false);">ON SYSTEM</button>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1" class="btn btn-stop" onmousedown="socket.emit('Client-send-stop',true);"  onmouseup="socket.emit('Client-send-stop',false);">OFF SYSTEM</button>
+
+                <button class="btn btn-resume" id="resume" onclick= "socket.emit('Client-send-pr', false); fn_DataEdit('pause','resume');">Resume</button>
+                <button class="btn btn-pause" id="pause" onclick= "socket.emit('Client-send-pr', true); fn_DataEdit('resume','pause');">Pause</button>
+                
+                <img id = "thanh_muc_start" ><script> fn_SymbolStatus("thanh_muc_start", "thanh_muc", "STT_SYSTEM_W") </script>
+                <img id = "thanh_muc_pause" ><script> fn_SymbolStatus("thanh_muc_pause", "thanh_muc", "BIT_P_R") </script>
+            </div> 
+
+            <div class="h2">
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_auto" class="btn btn-auto" onmousedown="socket.emit('Client-send-auto',true);"  onmouseup="socket.emit('Client-send-auto',false);">AUTO</button>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_manu" class="btn btn-manu" onmousedown="socket.emit('Client-send-manu',true);"  onmouseup="socket.emit('Client-send-manu',false);">MANU</button>
+
+                    
+                <img id = "thanh_muc_auto" ><script> fn_SymbolStatus("thanh_muc_auto", "thanh_muc", "BIT_AUTO_W") </script>
+                <img id = "thanh_muc_manu" ><script> fn_SymbolStatus("thanh_muc_manu", "thanh_muc", "BIT_MANUAL_W") </script>
+            </div>
+
+            <div class="h3">
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_park" class="btn btn-park" onmousedown="socket.emit('Client-send-park',true);"  onmouseup="socket.emit('Client-send-park',false);">PARK</button>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_retrieve" class="btn btn-retrieve" onmousedown="socket.emit('Client-send-retrieve',true);"  onmouseup="socket.emit('Client-send-retrieve',false);">RETRIEVE</button>
+            
+                    
+                <img id = "thanh_muc_park" ><script> fn_SymbolStatus("thanh_muc_park", "thanh_muc", "BIT_GUI_W") </script>
+                <img id = "thanh_muc_retrieve" ><script> fn_SymbolStatus("thanh_muc_retrieve", "thanh_muc", "BIT_LAY_W") </script>
+            </div>
+
+            <div class="h4">
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_in" class="btn1 btn-ibo-in" onmousedown="socket.emit('Client-send-in',true);"  onmouseup="socket.emit('Client-send-in',false);">IN</button>
+                <script>fn_IOFieldDataShow2("Q_IN__W", "HMI_JOG_1_Servo_Tlug-btn1_in");</script>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_out" class="btn1 btn-ibo-out" onmousedown="socket.emit('Client-send-out',true);"  onmouseup="socket.emit('Client-send-out',false);">OUT</button>
+                <script>fn_IOFieldDataShow2("Q_OUT_W", "HMI_JOG_1_Servo_Tlug-btn1_out");</script>
+            </div>
+
+            <div class="h5">
+
+                
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_1" class="btn1 btn-1" onmousedown="socket.emit('Client-send-1',true);"  onmouseup="socket.emit('Client-send-1',false);">1</button>
+                <script>fn_IOFieldDataShow2("Q1_W", "HMI_JOG_1_Servo_Tlug-btn1_1");</script>
+                 <!--<script>
+                    fn_IOFieldDataShow2("Q1_W", "HMI_JOG_1_Servo_Tlug-btn1_1");
+                    const toggleHMI_JOG_1_Servo_TlugBtn1_1 = document.getElementById('HMI_JOG_1_Servo_Tlug-btn1_1');
+                    let isHMI_JOG_1_Servo_TlugOn1_1 = false;
+
+                    toggleHMI_JOG_1_Servo_TlugBtn1_1.addEventListener('mousedown', function() {
+                        isHMI_JOG_1_Servo_TlugOn1_1 = true;
+                        socket.emit('Client-send-1', isHMI_JOG_1_Servo_TlugOn1_1);
+                    });
+
+                    toggleHMI_JOG_1_Servo_TlugBtn1_1.addEventListener('mouseup', function() {
+                        isHMI_JOG_1_Servo_TlugOn1_1 = false;
+                        socket.emit('Client-send-1', isHMI_JOG_1_Servo_TlugOn1_1);
+                    });
+
+                    // Sự kiện này xử lý khi chuột rời khỏi nút trong trạng thái nhấn
+                    toggleHMI_JOG_1_Servo_TlugBtn1_1.addEventListener('mouseleave', function() {
+                        if(isHMI_JOG_1_Servo_TlugOn1_1) {
+                            isHMI_JOG_1_Servo_TlugOn1_1 = false;
+                            socket.emit('Client-send-1', isHMI_JOG_1_Servo_TlugOn1_1);
+                        }
+                    });
+                </script>-->
+            
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_2" class="btn1 btn-2" onmousedown="socket.emit('Client-send-2',true);"  onmouseup="socket.emit('Client-send-2',false);">2</button>
+                <script>fn_IOFieldDataShow2("Q2_W", "HMI_JOG_1_Servo_Tlug-btn1_2");</script>
+                
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_3" class="btn1 btn-3" onmousedown="socket.emit('Client-send-3',true);"  onmouseup="socket.emit('Client-send-3',false);">3</button>
+                <script>fn_IOFieldDataShow2("Q3_W", "HMI_JOG_1_Servo_Tlug-btn1_3");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_4" class="btn1 btn-4" onmousedown="socket.emit('Client-send-4',true);"  onmouseup="socket.emit('Client-send-4',false);">4</button>
+                <script>fn_IOFieldDataShow2("Q4_W", "HMI_JOG_1_Servo_Tlug-btn1_4");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_5" class="btn1 btn-5" onmousedown="socket.emit('Client-send-5',true);"  onmouseup="socket.emit('Client-send-5',false);">5</button>
+                <script>fn_IOFieldDataShow2("Q5_W", "HMI_JOG_1_Servo_Tlug-btn1_5");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_6" class="btn1 btn-6" onmousedown="socket.emit('Client-send-6',true);"  onmouseup="socket.emit('Client-send-6',false);">6</button>
+                <script>fn_IOFieldDataShow2("Q6_W", "HMI_JOG_1_Servo_Tlug-btn1_6");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_7" class="btn1 btn-7" onmousedown="socket.emit('Client-send-7',true);"  onmouseup="socket.emit('Client-send-7',false);">7</button>
+                <script>fn_IOFieldDataShow2("Q7_W", "HMI_JOG_1_Servo_Tlug-btn1_7");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_8" class="btn1 btn-8" onmousedown="socket.emit('Client-send-8',true);"  onmouseup="socket.emit('Client-send-8',false);">8</button>
+                <script>fn_IOFieldDataShow2("Q8_W", "HMI_JOG_1_Servo_Tlug-btn1_8");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_9" class="btn1 btn-9" onmousedown="socket.emit('Client-send-9',true);"  onmouseup="socket.emit('Client-send-9',false);">9</button>
+                <script>fn_IOFieldDataShow2("Q9_W", "HMI_JOG_1_Servo_Tlug-btn1_9");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_10" class="btn1 btn-10" onmousedown="socket.emit('Client-send-10',true);"  onmouseup="socket.emit('Client-send-10',false);">10</button>
+                <script>fn_IOFieldDataShow2("Q10_W", "HMI_JOG_1_Servo_Tlug-btn1_10");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_11" class="btn1 btn-11" onmousedown="socket.emit('Client-send-11',true);"  onmouseup="socket.emit('Client-send-11',false);">11</button>
+                <script>fn_IOFieldDataShow2("Q11_W", "HMI_JOG_1_Servo_Tlug-btn1_11");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_12" class="btn1 btn-12" onmousedown="socket.emit('Client-send-12',true);"  onmouseup="socket.emit('Client-send-12',false);">12</button>
+                <script>fn_IOFieldDataShow2("Q12_W", "HMI_JOG_1_Servo_Tlug-btn1_12");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_13" class="btn1 btn-13" onmousedown="socket.emit('Client-send-13',true);"  onmouseup="socket.emit('Client-send-13',false);">13</button>
+                <script>fn_IOFieldDataShow2("Q13_W", "HMI_JOG_1_Servo_Tlug-btn1_13");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_14" class="btn1 btn-14" onmousedown="socket.emit('Client-send-14',true);"  onmouseup="socket.emit('Client-send-14',false);">14</button>
+                <script>fn_IOFieldDataShow2("Q14_W", "HMI_JOG_1_Servo_Tlug-btn1_14");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_15" class="btn1 btn-15" onmousedown="socket.emit('Client-send-15',true);"  onmouseup="socket.emit('Client-send-15',false);">15</button>
+                <script>fn_IOFieldDataShow2("Q15_W", "HMI_JOG_1_Servo_Tlug-btn1_15");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_16" class="btn1 btn-16" onmousedown="socket.emit('Client-send-16',true);"  onmouseup="socket.emit('Client-send-16',false);">16</button>
+                <script>fn_IOFieldDataShow2("Q16_W", "HMI_JOG_1_Servo_Tlug-btn1_16");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_17" class="btn1 btn-17" onmousedown="socket.emit('Client-send-17',true);"  onmouseup="socket.emit('Client-send-17',false);">17</button>
+                <script>fn_IOFieldDataShow2("Q17_W", "HMI_JOG_1_Servo_Tlug-btn1_17");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_18" class="btn1 btn-18" onmousedown="socket.emit('Client-send-18',true);"  onmouseup="socket.emit('Client-send-18',false);">18</button>
+                <script>fn_IOFieldDataShow2("Q18_W", "HMI_JOG_1_Servo_Tlug-btn1_18");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_19" class="btn1 btn-19" onmousedown="socket.emit('Client-send-19',true);"  onmouseup="socket.emit('Client-send-19',false);">19</button>
+                <script>fn_IOFieldDataShow2("Q19_W", "HMI_JOG_1_Servo_Tlug-btn1_19");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_20" class="btn1 btn-20" onmousedown="socket.emit('Client-send-20',true);"  onmouseup="socket.emit('Client-send-20',false);">20</button>
+                <script>fn_IOFieldDataShow2("Q20_W", "HMI_JOG_1_Servo_Tlug-btn1_20");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_21" class="btn1 btn-21" onmousedown="socket.emit('Client-send-21',true);"  onmouseup="socket.emit('Client-send-21',false);">21</button>
+                <script>fn_IOFieldDataShow2("Q21_W", "HMI_JOG_1_Servo_Tlug-btn1_21");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_22" class="btn1 btn-22" onmousedown="socket.emit('Client-send-22',true);"  onmouseup="socket.emit('Client-send-22',false);">22</button>
+                <script>fn_IOFieldDataShow2("Q22_W", "HMI_JOG_1_Servo_Tlug-btn1_22");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_23" class="btn1 btn-23" onmousedown="socket.emit('Client-send-23',true);"  onmouseup="socket.emit('Client-send-23',false);">23</button>
+                <script>fn_IOFieldDataShow2("Q23_W", "HMI_JOG_1_Servo_Tlug-btn1_23");</script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_24" class="btn1 btn-24" onmousedown="socket.emit('Client-send-24',true);"  onmouseup="socket.emit('Client-send-24',false);">24</button>
+                <script>fn_IOFieldDataShow2("Q24_W", "HMI_JOG_1_Servo_Tlug-btn1_24");</script>
+
+            </div>
+
+           <!-- <div class="h6">
+                <img class="hinh6" src="images\symbol\base5.png" alt="" width="115%" height="115%">
+
+                
+                <img id = "light_IN" ><script> fn_SymbolStatus("light_IN", "Paper", "Q_IN__W") </script>
+                <img id = "light_OUT" ><script> fn_SymbolStatus("light_OUT", "Paper", "Q_OUT_W") </script>
+                <img id = "light_1" ><script> fn_SymbolStatus("light_1", "Paper", "Q1_W") </script>
+                <img id = "light_2" ><script> fn_SymbolStatus("light_2", "Paper", "Q2_W") </script>
+                <img id = "light_3" ><script> fn_SymbolStatus("light_3", "Paper", "Q3_W") </script>
+                <img id = "light_4" ><script> fn_SymbolStatus("light_4", "Paper", "Q4_W") </script>
+                <img id = "light_5" ><script> fn_SymbolStatus("light_5", "Paper", "Q5_W") </script>
+                <img id = "light_6" ><script> fn_SymbolStatus("light_6", "Paper", "Q6_W") </script>
+                <img id = "light_7" ><script> fn_SymbolStatus("light_7", "Paper", "Q7_W") </script>
+                <img id = "light_8" ><script> fn_SymbolStatus("light_8", "Paper", "Q8_W") </script>
+                <img id = "light_9" ><script> fn_SymbolStatus("light_9", "Paper", "Q9_W") </script>
+                <img id = "light_10" ><script> fn_SymbolStatus("light_10", "Paper", "Q10_W") </script>
+                <img id = "light_11" ><script> fn_SymbolStatus("light_11", "Paper", "Q11_W") </script>
+                <img id = "light_12" ><script> fn_SymbolStatus("light_12", "Paper", "Q12_W") </script>
+                <img id = "light_13" ><script> fn_SymbolStatus("light_13", "Paper", "Q13_W") </script>
+                <img id = "light_14" ><script> fn_SymbolStatus("light_14", "Paper", "Q14_W") </script>
+                <img id = "light_15" ><script> fn_SymbolStatus("light_15", "Paper", "Q15_W") </script>
+                <img id = "light_16" ><script> fn_SymbolStatus("light_16", "Paper", "Q16_W") </script>
+                <img id = "light_17" ><script> fn_SymbolStatus("light_17", "Paper", "Q17_W") </script>
+                <img id = "light_18" ><script> fn_SymbolStatus("light_18", "Paper", "Q18_W") </script>
+                <img id = "light_19" ><script> fn_SymbolStatus("light_19", "Paper", "Q19_W") </script>
+                <img id = "light_20" ><script> fn_SymbolStatus("light_20", "Paper", "Q20_W") </script>
+                <img id = "light_21" ><script> fn_SymbolStatus("light_21", "Paper", "Q21_W") </script>
+                <img id = "light_22" ><script> fn_SymbolStatus("light_22", "Paper", "Q22_W") </script>
+                <img id = "light_23" ><script> fn_SymbolStatus("light_23", "Paper", "Q23_W") </script>
+                <img id = "light_24" ><script> fn_SymbolStatus("light_24", "Paper", "Q24_W") </script>
+            </div>-->
+
+            <div class="h7">
+                <!--Table Cảnh báo Alarm-->
+                <div id = "div_table_Alarm">
+                    <table id="table_Alarm" >
+                        <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>ID cảnh báo</th>
+                            <th>Trạng thái</th>
+                            <th>Nội dung cảnh báo</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="h8">
+                <button class="btn btn-offp" id="offpower" onclick= "socket.emit('Client-send-power', false); fn_DataEdit('onpower','offpower');">OFF POWER</button>
+                <button class="btn btn-onp" id="onpower" onclick= "socket.emit('Client-send-power', true); fn_DataEdit('offpower','onpower');">ON POWER</button>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_shome" class="btn btn-sethome" onmousedown="socket.emit('Client-send-shome',true);"  onmouseup="socket.emit('Client-send-shome',false);">SET HOME</button>
+                
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_chuan" class="btn btn-chuan" onmousedown="socket.emit('Client-send-chuan',true);"  onmouseup="socket.emit('Client-send-chuan',false);">chuan</button>
+
+                <button class="btn btn-dlen" id="dlen" onclick= "socket.emit('Client-send-len', false); fn_DataEdit('len','dlen');">DỪNG LÊN</button>
+                <button class="btn btn-len" id="len" onclick= "socket.emit('Client-send-len', true); fn_DataEdit('dlen','len');">LÊN</button>
+
+                <button class="btn btn-dxuong" id="dxuong" onclick= "socket.emit('Client-send-xuong', false); fn_DataEdit('xuong','dxuong');">DỪNG XUỐNG</button>
+                <button class="btn btn-xuong" id="xuong" onclick= "socket.emit('Client-send-xuong', true); fn_DataEdit('dxuong','xuong');">XUỐNG</button>
+
+                <button class="btn btn-dquay" id="dquay" onclick= "socket.emit('Client-send-quay', false); fn_DataEdit('quay','dquay');">DỪNG QUAY</button>
+                <button class="btn btn-quay" id="quay" onclick= "socket.emit('Client-send-quay', true); fn_DataEdit('dquay','quay');">QUAY</button>
+
+                <button class="btn btn-dra" id="dra" onclick= "socket.emit('Client-send-ra', false); fn_DataEdit('ra','dra');">DỪNG RA</button>
+                <button class="btn btn-ra" id="ra" onclick= "socket.emit('Client-send-ra', true); fn_DataEdit('dra','ra');">RA</button>
+
+                <button class="btn btn-dvo" id="dvo" onclick= "socket.emit('Client-send-vo', false); fn_DataEdit('vo','dvo');">DỪNG VÔ</button>
+                <button class="btn btn-vo" id="vo" onclick= "socket.emit('Client-send-vo', true); fn_DataEdit('dvo','vo');">VÔ</button>
+
+                <button class="btn btn-luugoc" id="btt_S2_Save" onclick= "fn_S2_SaveBtt()">LƯU</button>  
+                <button class="btn btn-suagoc" id="btt_S2_Edit" onclick= "fn_S2_EditBtt()">SỬA</button>   
+
+                <label class="text1">GOC QUAY:</label>
+                <input id="gocquay" disabled="disabled" type="text"/>
+                <script>fn_S2_IOField_IO("GOC_QUAY_W", "gocquay", 2)</script>
+
+                <label class="text2">Vị trí có xe:</label>
+                <input id="vtcx" disabled="disabled" type="text"/>
+                <script>fn_IOFieldDataShow("SO_CO_XE_W", "vtcx", 0)</script>
+
+                <label class="text3">Vị Trí Trống:</label>
+                <input id="vtt" disabled="disabled" type="text"/>
+                <script>fn_IOFieldDataShow("SO_KO_XE_W", "vtt", 0)</script>
+
+                <label class="text4">Hiện Ở:</label>
+                <input id="hot" disabled="disabled" type="text"/>
+                <script>fn_IOFieldDataShow("VT_CHECK_AUTO_W", "hot", 0)</script>
+
+            </div>
+
+            <div class="h9">
+                <p class="text">Đ/cơ vào:</p> <img id = "thanh_muc_dcvao" ><script> fn_SymbolStatus("thanh_muc_dcvao", "thanh_muc", "BIT_VO_W") </script>
+                <p class="text">Đ/cơ ra:</p> <img id = "thanh_muc_dcra" ><script> fn_SymbolStatus("thanh_muc_dcra", "thanh_muc", "BIT_RA_W") </script>
+                <p class="text">Đ/cơ lên:</p> <img id = "thanh_muc_dclen" ><script> fn_SymbolStatus("thanh_muc_dclen", "thanh_muc", "BIT_LEN_W") </script>
+                <p class="text">Đ/cơ xuống:</p> <img id = "thanh_muc_dcxuong" ><script> fn_SymbolStatus("thanh_muc_dcxuong", "thanh_muc", "BIT_XUONG_W") </script>
+                <p class="text">Đ/cơ quay:</p> <img id = "thanh_muc_dcquay" ><script> fn_SymbolStatus("thanh_muc_dcquay", "thanh_muc", "BIT_QUAY_W") </script>
+                <p class="text">CTHT 1:</p> <img id = "thanh_muc_ctht1" ><script> fn_SymbolStatus("thanh_muc_ctht1", "thanh_muc", "CTHT1_W") </script>
+            </div>
+
+            <div class="h10">
+                    <p class="text">Cảm biến 1:</p> <img id = "thanh_muc_cb1" ><script> fn_SymbolStatus("thanh_muc_cb1", "thanh_muc", "CB1_W") </script>
+                    <p class="text">Cảm biến 2:</p> <img id = "thanh_muc_cb2" ><script> fn_SymbolStatus("thanh_muc_cb2", "thanh_muc", "CB2_W") </script>
+                    <p class="text">Cảm biến 3:</p> <img id = "thanh_muc_cb3" ><script> fn_SymbolStatus("thanh_muc_cb3", "thanh_muc", "CB3_W") </script>
+                    <p class="text">Cảm biến 4:</p> <img id = "thanh_muc_cb4" ><script> fn_SymbolStatus("thanh_muc_cb4", "thanh_muc", "CB4_W") </script>
+                    <p class="text">Cảm biến 5:</p> <img id = "thanh_muc_cb5" ><script> fn_SymbolStatus("thanh_muc_cb5", "thanh_muc", "CB5_W") </script>
+                    <p class="text">CTHT 2:</p> <img id = "thanh_muc_ctht2" ><script> fn_SymbolStatus("thanh_muc_ctht2", "thanh_muc", "CTHT2_W") </script>
+            </div>
+
+            <div class="h11">
+                    <p class="text5">Biển số:</p>
+                    <input id="bienso" disabled="disabled" type="text"/>
+                    <script>fn_IOFieldDataShow("BIEN_SO_W", "bienso", 0)</script>
+                    
+                    <p class="text5">Màu xe:</p>
+                    <input id="mauxe" disabled="disabled" type="text"/>
+                    <script>fn_IOFieldDataShow("MAU_XE_W", "mauxe", 0)</script>
+
+                    <p class="text5">Th/gian vào:</p>
+                    <input id="tgvao" disabled="disabled" type="text"/>
+                    <script>fn_IOFieldDataShow("T_G_VAO_W", "tgvao", 0)</script>
+                    <br>
+                    <p class="text5">Th/gian ra:</p>
+                    <input id="tgra" disabled="disabled" type="text"/>
+                    <script>fn_IOFieldDataShow("T_G_RA_W", "tgra", 0)</script>
+                    <br>
+                    <p class="text5">Thành tiền:</p>
+                    <input id="tt" disabled="disabled" type="text"/>
+                    <script>fn_IOFieldDataShow("THANH_TIEN_W", "tt", 0)</script>
+            </div>
+        </div>
+
+
+        <div id="Screen_Search">
+            <div class="thanh_search">
+                <!--Date time piker-->
+                <label id="lb_Search_Start">From:</label>
+                <input id="dtpk_Search_Start" type="datetime-local">
+                <label id="lb_Search_End">To:</label>
+                <input id="dtpk_Search_End" type="datetime-local">
+                <!--Nút tìm kiếm-->
+                <button id="btt_Search_Time_In" class="btn" onclick="fn_SQL_By_Time_In();
+                "></i> SEARCH TIME IN</button>
+
+                <button id="btt_Search_Time_Out" class="btn" onclick="fn_SQL_By_Time_Out();
+                "></i> SEARCH TIME OUT</button>
+
+                <label id="lb_So_xe">NUMBER CAR:</label>
+                <input id="txt_ValueToSearch_Num_Car" type="text">
+                <button id="btt_Search_number_car" class="btn" onclick="fn_SQL_By_Num_Car();
+                "></i> SEARCH NUMBER CAR</button>
+
+                <label id="lb_Mau_xe">COLOR CAR:</label>
+                <input id="txt_ValueToSearch_Color_Car" type="text">
+                <button id="btt_Search_color_car" class="btn" onclick="fn_SQL_By_Color_Car();
+                "></i> SEARCH COLOR CAR</button>
+
+                <button id="btt_Search_KHTT" class="btn" onclick="fn_Table01_SQL_KHTT();
+                "></i>KHÁCH HÀNG THÂN THIẾT</button>
+
+                <button id="btt_Search_RESET" class="btn" onclick="fn_Table01_SQL_Show();
+                "></i> RESET</button>
+
+                <!--Nút Xuất Excel-->
+                <button id="btt_Excel" class="btn" onclick="fn_excel();
+                "></i> BÁO CÁO</button>
+            </div>
+            <!--Table display-->
+                <div id = "div_Table_01">
+                    <table id="table_01" >
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Num</th>
+                            <th>Color</th>
+                            <th>Time In</th>
+                            <th>Time Out</th>
+                            <th>Price</th>
+                            <th>Member</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+        </div>
+
+        <div id="Screen_Client">
+            <div class="c1">
+                <img id = "light_1" ><script> fn_SymbolStatus("light_1", "Paper", "Q1_W") </script>
+                <img id = "light_2" ><script> fn_SymbolStatus("light_2", "Paper", "Q2_W") </script>
+                <img id = "light_3" ><script> fn_SymbolStatus("light_3", "Paper", "Q3_W") </script>
+                <img id = "light_4" ><script> fn_SymbolStatus("light_4", "Paper", "Q4_W") </script>
+                <img id = "light_5" ><script> fn_SymbolStatus("light_5", "Paper", "Q5_W") </script>
+                <img id = "light_6" ><script> fn_SymbolStatus("light_6", "Paper", "Q6_W") </script>
+                <img id = "light_7" ><script> fn_SymbolStatus("light_7", "Paper", "Q7_W") </script>
+                <img id = "light_8" ><script> fn_SymbolStatus("light_8", "Paper", "Q8_W") </script>
+                <img id = "light_9" ><script> fn_SymbolStatus("light_9", "Paper", "Q9_W") </script>
+                <img id = "light_10" ><script> fn_SymbolStatus("light_10", "Paper", "Q10_W") </script>
+                <img id = "light_11" ><script> fn_SymbolStatus("light_11", "Paper", "Q11_W") </script>
+                <img id = "light_12" ><script> fn_SymbolStatus("light_12", "Paper", "Q12_W") </script>
+                <img id = "light_13" ><script> fn_SymbolStatus("light_13", "Paper", "Q13_W") </script>
+                <img id = "light_14" ><script> fn_SymbolStatus("light_14", "Paper", "Q14_W") </script>
+                <img id = "light_15" ><script> fn_SymbolStatus("light_15", "Paper", "Q15_W") </script>
+                <img id = "light_16" ><script> fn_SymbolStatus("light_16", "Paper", "Q16_W") </script>
+                <img id = "light_17" ><script> fn_SymbolStatus("light_17", "Paper", "Q17_W") </script>
+                <img id = "light_18" ><script> fn_SymbolStatus("light_18", "Paper", "Q18_W") </script>
+                <img id = "light_19" ><script> fn_SymbolStatus("light_19", "Paper", "Q19_W") </script>
+                <img id = "light_20" ><script> fn_SymbolStatus("light_20", "Paper", "Q20_W") </script>
+                <img id = "light_21" ><script> fn_SymbolStatus("light_21", "Paper", "Q21_W") </script>
+                <img id = "light_22" ><script> fn_SymbolStatus("light_22", "Paper", "Q22_W") </script>
+                <img id = "light_23" ><script> fn_SymbolStatus("light_23", "Paper", "Q23_W") </script>
+                <img id = "light_24" ><script> fn_SymbolStatus("light_24", "Paper", "Q24_W") </script>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_1" class="btn1 btn-1">1</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_2" class="btn1 btn-2">2</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_3" class="btn1 btn-3">3</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_4" class="btn1 btn-4">4</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_5" class="btn1 btn-5">5</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_6" class="btn1 btn-6">6</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_7" class="btn1 btn-7">7</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_8" class="btn1 btn-8">8</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_9" class="btn1 btn-9">9</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_10" class="btn1 btn-10">10</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_11" class="btn1 btn-11">11</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_12" class="btn1 btn-12">12</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_13" class="btn1 btn-13">13</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_14" class="btn1 btn-14">14</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_15" class="btn1 btn-15">15</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_16" class="btn1 btn-16">16</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_17" class="btn1 btn-17">17</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_18" class="btn1 btn-18">18</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_19" class="btn1 btn-19">19</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_20" class="btn1 btn-20">20</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_21" class="btn1 btn-21">21</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_22" class="btn1 btn-22">22</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_23" class="btn1 btn-23">23</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_24" class="btn1 btn-24">24</button>
+
+
+            </div>
+            <div class="c2"> 
+                <button id="btt_Cancel" class="btn" 
+                ></i> CANCEL</button>
+            </div>
+            <div class="c3"></div>
+      </div>
+
+        <div id="Screen_HOME">
+            <div class="col-1">
+                <h1>TOPIC <br>PARKING AUTOMATION</h1>
+                <div id="background_img"></div>
+            </div>
+            <div class="image-container_2">
+                <img src="images\school\image-removebg-preview.png" alt="">
+            </div>
+            <div class="khungname">
+                <h2>TS.Nguyen Tu Duc</h2>
+            </div>
+            <div class="khungimg"></div>
+            <div class="khungnote"> <p>GVHD<p> </div>
+            
+            <div class="khungname_B">
+                <h2>Pham Truong Gia Bao</h2>
+            </div>
+            <div class="khungimg_B"></div>
+            <div class="khungnote_B"> <p>20151437<p> </div>
+
+            <div class="khungname_T">
+                <h2>Ha Chi Thang</h2>
+            </div>
+            <div class="khungimg_T"></div>
+            <div class="khungnote_T"> <p>20151510<p> </div>
+
+            <div class="khungname_H">
+                <h2>Nguyen Huu Hung</h2>
+            </div>
+            <div class="khungimg_H"></div>
+            <div class="khungnote_H"> <p>20151488<p> </div>
+
+                <div class="khungname_Hs">
+                    
+                </div>
+        </div>
+
+
+        <div class="footer">
+            <h2>PARKING AUTOMATION</h2>
+            <h2>TRUONG DAI HOC SU PHAM KY THUAT TPHCM</h2>
+            <h2>KHOA DIEN - DIEN TU</h2>
+            <h2>CNKT DIEU KHIEN VA TU DONG HOA</h2>
+            <div id="clock"></div>
+
+            <script>
+                function displayTime() {
+                    var date = new Date();
+                    var time = date.toLocaleTimeString();
+                    document.getElementById('clock').innerHTML = time;
+                }
+                setInterval(displayTime, 1000); // Cập nhật thời gian mỗi giây
+                displayTime(); // Hiển thị thời gian ban đầu
+            </script>
+
+        </div>
+
+    </body>
+</html>

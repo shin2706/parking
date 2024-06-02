@@ -1,0 +1,10 @@
+#Screen_Status{
+    position: absolute;
+    left: 215px; top: 11px;
+    display: flex;
+    width: 1650px; height: 834px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    padding: 8px;
+}

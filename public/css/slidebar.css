@@ -1,0 +1,184 @@
+/*slidebar chinh*/
+#slidebar {
+    position: absolute;
+    border-radius: 22px;
+    left: 5px; top: 11px;
+    width: 198px; height: 850px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    position: absolute;
+    top: 10px; /* Điều chỉnh theo yêu cầu của bạn */
+    left: 0px; /* Điều chỉnh theo yêu cầu của bạn */
+}
+
+.image-container_1 {
+    position: relative;
+}
+
+.image-container_1 img {
+    position: absolute;
+    top: 680px; /* Điều chỉnh theo yêu cầu của bạn */
+    left: 0px; /* Điều chỉnh theo yêu cầu của bạn */
+}
+
+
+/*Nút Man chinh*/
+#btt_Screen_HOME {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 230px;
+    
+}
+#btt_Screen_HOME:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+/*Nút Màn 1*/
+#btt_Screen_Summary_Information {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 280px;
+}
+#btt_Screen_Summary_Information:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+
+#btt_Screen_Control_Panel {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 330px;
+}
+#btt_Screen_Control_Panel:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+
+#btt_Screen_Status {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 380px;
+}
+#btt_Screen_Status:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+
+#btt_Screen_Search {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 430px;
+}
+#btt_Screen_Search:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+
+#btt_Screen_Client {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 480px;
+}
+#btt_Screen_Client:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+
+#btt_Screen_Login {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 580px;
+}
+#btt_Screen_Login:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}
+
+#btt_Screen_Logout {
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    position: absolute;
+    width: 150px; height: 40px;
+    border-radius: 22px;
+    left: 22px; top: 630px;
+}
+#btt_Screen_Logout:hover{
+    transition: 0.25s;
+    background: rgb(56, 130, 209);
+    color: white;
+}

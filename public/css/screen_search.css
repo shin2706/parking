@@ -1,0 +1,214 @@
+#Screen_Search{
+    position: absolute;
+    left: 215px; top: 11px;
+    display: flex;
+    width: 1650px; height: 834px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    padding: 8px;
+}
+
+/*//////////////Hiển thị dữ liệu bảng 1 - Start/////////////////*/
+#div_Table_01 {
+    position: absolute;
+    left: 20px; top: 120px;
+    width: 1620px; height: 700px;
+    overflow-y: scroll;
+    border-radius: 10px;
+    text-decoration: #55608f;
+}
+/*Table*/
+#table_01 {
+    position: absolute;
+    width:100%;
+}
+#table_01 tr{
+    cursor: pointer;
+}
+#table_01 tr:hover{background-color: #ddd;}
+#table_01   { overflow: auto; }
+#table_01 thead th { position: sticky; top: 0;  }
+/* Just common table stuff. Really. */
+#table_01  { border-collapse: collapse; width: 100%; }
+#table_01 th, td { padding: 8px 16px; }
+#table_01 th     { background:skyblue; }
+/*//////////////Hiển thị dữ liệu bảng 1 - end/////////////////*/
+
+
+.thanh_search{
+    position: absolute;
+    left: 20px; top: 11px;
+    display: flex;
+    width: 1600px; height: 80px;
+    background: white;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 22px;
+    padding: 8px;
+}
+
+/*//////////////TRƯỜNG TÌM KIẾM DỮ LIỆU/////////////////*/
+/*Lable tìm kiếm từ*/
+#lb_Search_Start {
+    position: absolute;
+    color: rgb(26, 24, 24);
+    font-size: 14px;
+    font-weight: normal;
+    left: 15px; top: 10px;
+    padding: 10px;
+}
+/*Chọn ngày tháng bắt đầu*/
+#dtpk_Search_Start {
+    position: absolute;
+    text-align: left;
+    left: 70px; top: 10px;
+    width: 185px; height: 30px;
+}
+
+/*Lable tìm kiếm đến*/
+#lb_Search_End {
+    position: absolute;
+    color: rgb(26, 24, 24);
+    font-size: 14px;
+    font-weight: normal;
+    left: 15px; top: 50px;
+    padding: 10px;
+}
+/*Chọn ngày tháng kết thúc*/
+#dtpk_Search_End {
+    position: absolute;
+    text-align: left;
+    left: 70px; top: 50px;
+    width: 185px; height: 30px;
+}
+/*Nút tìm kiếm*/
+#btt_Search_Time_In {
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 270px; top: -10px;
+}
+
+/*Nút tìm kiếm*/
+#btt_Search_Time_Out {
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 390px; top: -10px;
+}
+
+#txt_ValueToSearch_Num_Car{
+    position: absolute;
+    width: 100px; height: 30px;
+    left: 630px; top: 30px;
+}
+
+#txt_ValueToSearch_Color_Car{
+    position: absolute;
+    width: 100px; height: 30px;
+    left: 955px; top: 30px;
+}
+
+#lb_So_xe{
+    position: absolute;
+    color: rgb(26, 24, 24);
+    font-size: 14px;
+    font-weight: normal;
+    left: 515px; top: 30px;
+    padding: 10px;
+}
+
+#lb_Mau_xe{
+    position: absolute;
+    color: rgb(26, 24, 24);
+    font-size: 14px;
+    font-weight: normal;
+    left: 855px; top: 30px;
+    padding: 10px;
+}
+
+#btt_Search_number_car{
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 735px; top: -10px;
+}
+
+#btt_Search_color_car{
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 1060px; top: -10px;
+}
+
+#btt_Search_KHTT{
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 1205px; top: -10px;
+}
+
+
+#btt_Search_RESET{
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 1340px; top: -10px;
+}
+
+#btt_Excel{
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 1470px; top: -10px;
+}
+/*//////////////TRƯỜNG TÌM KIẾM DỮ LIỆU - END/////////////////*/
