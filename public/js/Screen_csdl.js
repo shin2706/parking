@@ -166,5 +166,3 @@ function fn_table_Alarm(data){
         }
     }
 }
-
-setInterval(function(){fn_Alarm_Show();},1000);

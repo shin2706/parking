@@ -149,14 +149,39 @@ var tags_list = {
     Alarm_M7: 'DB100,X16.7',
     Alarm_M8: 'DB100,X17.0',         
     Alarm_M9: 'DB100,X17.1',
-    SO_CO_XE_W: 'DB100,INT18',
-    SO_KO_XE_W: 'DB100,INT20', 
-    VT_CHECK_AUTO_W: 'DB100,INT22', 
-    BIEN_SO_W: 'DB100,S24.256', 
-    MAU_XE_W: 'DB100,S280.256', 
-    T_G_VAO_W: 'DB100,S536.256', 
-    T_G_RA_W: 'DB100,S792.256', 
-    THANH_TIEN_W: 'DB100,S1048.256' 
+    B_TT_W_1: 'DB100,X17.2',
+    B_TT_W_2: 'DB100,X17.3',
+    B_TT_W_3: 'DB100,X17.4',
+    B_TT_W_4: 'DB100,X17.5',
+    B_TT_W_5: 'DB100,X17.6',
+    B_TT_W_6: 'DB100,X17.7',
+    B_TT_W_7: 'DB100,X18.0',
+    B_TT_W_8: 'DB100,X18.1',
+    B_TT_W_9: 'DB100,X18.2',
+    B_TT_W_10: 'DB100,X18.3',
+    B_TT_W_11: 'DB100,X18.4',
+    B_TT_W_12: 'DB100,X18.5',
+    B_TT_W_13: 'DB100,X18.6',
+    B_TT_W_14: 'DB100,X18.7',
+    B_TT_W_15: 'DB100,X19.0',
+    B_TT_W_16: 'DB100,X19.1',
+    B_TT_W_17: 'DB100,X19.2',
+    B_TT_W_18: 'DB100,X19.3',
+    B_TT_W_19: 'DB100,X19.4',
+    B_TT_W_20: 'DB100,X19.5',
+    B_TT_W_21: 'DB100,X19.6',
+    B_TT_W_22: 'DB100,X19.7',
+    B_TT_W_23: 'DB100,X20.0',
+    B_TT_W_24: 'DB100,X20.1',
+    SO_CO_XE_W: 'DB100,INT22',
+    SO_KO_XE_W: 'DB100,INT24', 
+    VT_CHECK_AUTO_W: 'DB100,INT26', 
+    BIEN_SO_W: 'DB100,S28.256', 
+    MAU_XE_W: 'DB100,S284.256', 
+    T_G_VAO_W: 'DB100,S540.256', 
+    T_G_RA_W: 'DB100,S796.256', 
+    THANH_TIEN_W: 'DB100,S1052.256'
+    
 };
 
 
@@ -265,6 +290,30 @@ function PLC_connected(err) {
       'Alarm_M7', 
       'Alarm_M8',       // Trigger ghi dữ liệu xuống SQL
       'Alarm_M9',
+      'B_TT_W_1',
+      'B_TT_W_2',
+      'B_TT_W_3',
+      'B_TT_W_4',
+      'B_TT_W_5',
+      'B_TT_W_6',
+      'B_TT_W_7',
+      'B_TT_W_8',
+      'B_TT_W_9',
+      'B_TT_W_10',
+      'B_TT_W_11',
+      'B_TT_W_12',
+      'B_TT_W_13',
+      'B_TT_W_14',
+      'B_TT_W_15',
+      'B_TT_W_16',
+      'B_TT_W_17',
+      'B_TT_W_18',
+      'B_TT_W_19',
+      'B_TT_W_20',
+      'B_TT_W_21',
+      'B_TT_W_22',
+      'B_TT_W_23',
+      'B_TT_W_24',
       'SO_CO_XE_W',
       'SO_KO_XE_W',
       'VT_CHECK_AUTO_W',
@@ -349,6 +398,30 @@ io.on("connection", function(socket){
     socket.on("Client-send-ra", function(data){conn_plc.writeItems('B_W_RA', data, valuesWritten);});
     socket.on("Client-send-vo", function(data){conn_plc.writeItems('B_W_VAO', data, valuesWritten);});
     socket.on("Client-send-case", function(data){conn_plc.writeItems('B_CASE_W', data, valuesWritten);});
+    socket.on("Client-send-T-1", function(data){conn_plc.writeItems('B_TT_W_1', data, valuesWritten);});
+    socket.on("Client-send-T-2", function(data){conn_plc.writeItems('B_TT_W_2', data, valuesWritten);});
+    socket.on("Client-send-T-3", function(data){conn_plc.writeItems('B_TT_W_3', data, valuesWritten);});
+    socket.on("Client-send-T-4", function(data){conn_plc.writeItems('B_TT_W_4', data, valuesWritten);});
+    socket.on("Client-send-T-5", function(data){conn_plc.writeItems('B_TT_W_5', data, valuesWritten);});
+    socket.on("Client-send-T-6", function(data){conn_plc.writeItems('B_TT_W_6', data, valuesWritten);});
+    socket.on("Client-send-T-7", function(data){conn_plc.writeItems('B_TT_W_7', data, valuesWritten);});
+    socket.on("Client-send-T-8", function(data){conn_plc.writeItems('B_TT_W_8', data, valuesWritten);});
+    socket.on("Client-send-T-9", function(data){conn_plc.writeItems('B_TT_W_9', data, valuesWritten);});
+    socket.on("Client-send-T-10", function(data){conn_plc.writeItems('B_TT_W_10', data, valuesWritten);});
+    socket.on("Client-send-T-11", function(data){conn_plc.writeItems('B_TT_W_11', data, valuesWritten);});
+    socket.on("Client-send-T-12", function(data){conn_plc.writeItems('B_TT_W_12', data, valuesWritten);});
+    socket.on("Client-send-T-13", function(data){conn_plc.writeItems('B_TT_W_13', data, valuesWritten);});
+    socket.on("Client-send-T-14", function(data){conn_plc.writeItems('B_TT_W_14', data, valuesWritten);});
+    socket.on("Client-send-T-15", function(data){conn_plc.writeItems('B_TT_W_15', data, valuesWritten);});
+    socket.on("Client-send-T-16", function(data){conn_plc.writeItems('B_TT_W_16', data, valuesWritten);});
+    socket.on("Client-send-T-17", function(data){conn_plc.writeItems('B_TT_W_17', data, valuesWritten);});
+    socket.on("Client-send-T-18", function(data){conn_plc.writeItems('B_TT_W_18', data, valuesWritten);});
+    socket.on("Client-send-T-19", function(data){conn_plc.writeItems('B_TT_W_19', data, valuesWritten);});
+    socket.on("Client-send-T-20", function(data){conn_plc.writeItems('B_TT_W_20', data, valuesWritten);});
+    socket.on("Client-send-T-21", function(data){conn_plc.writeItems('B_TT_W_21', data, valuesWritten);});
+    socket.on("Client-send-T-22", function(data){conn_plc.writeItems('B_TT_W_22', data, valuesWritten);});
+    socket.on("Client-send-T-23", function(data){conn_plc.writeItems('B_TT_W_23', data, valuesWritten);});
+    socket.on("Client-send-T-24", function(data){conn_plc.writeItems('B_TT_W_24', data, valuesWritten);});
 });
 
 
@@ -452,14 +525,38 @@ function fn_tag(){
     io.sockets.emit("Alarm_M7", arr_tag_value[95]);
     io.sockets.emit("Alarm_M8", arr_tag_value[96]);
     io.sockets.emit("Alarm_M9", arr_tag_value[97]);
-    io.sockets.emit("SO_CO_XE_W", arr_tag_value[98]);
-    io.sockets.emit("SO_KO_XE_W", arr_tag_value[99]);
-    io.sockets.emit("VT_CHECK_AUTO_W", arr_tag_value[100]);
-    io.sockets.emit("BIEN_SO_W", arr_tag_value[101]);
-    io.sockets.emit("MAU_XE_W", arr_tag_value[102]);
-    io.sockets.emit("T_G_VAO_W", arr_tag_value[103]);
-    io.sockets.emit("T_G_RA_W", arr_tag_value[104]);
-    io.sockets.emit("THANH_TIEN_W", arr_tag_value[105]);
+    io.sockets.emit("B_TT_W_1", arr_tag_value[98]);
+    io.sockets.emit("B_TT_W_2", arr_tag_value[99]);
+    io.sockets.emit("B_TT_W_3", arr_tag_value[100]);
+    io.sockets.emit("B_TT_W_4", arr_tag_value[101]);
+    io.sockets.emit("B_TT_W_5", arr_tag_value[102]);
+    io.sockets.emit("B_TT_W_6", arr_tag_value[103]);
+    io.sockets.emit("B_TT_W_7", arr_tag_value[104]);
+    io.sockets.emit("B_TT_W_8", arr_tag_value[105]);
+    io.sockets.emit("B_TT_W_9", arr_tag_value[106]);
+    io.sockets.emit("B_TT_W_10", arr_tag_value[107]);
+    io.sockets.emit("B_TT_W_11", arr_tag_value[108]);
+    io.sockets.emit("B_TT_W_12", arr_tag_value[109]);
+    io.sockets.emit("B_TT_W_13", arr_tag_value[110]);
+    io.sockets.emit("B_TT_W_14", arr_tag_value[111]);
+    io.sockets.emit("B_TT_W_15", arr_tag_value[112]);
+    io.sockets.emit("B_TT_W_16", arr_tag_value[113]);
+    io.sockets.emit("B_TT_W_17", arr_tag_value[114]);
+    io.sockets.emit("B_TT_W_18", arr_tag_value[115]);
+    io.sockets.emit("B_TT_W_19", arr_tag_value[116]);
+    io.sockets.emit("B_TT_W_20", arr_tag_value[117]);
+    io.sockets.emit("B_TT_W_21", arr_tag_value[118]);
+    io.sockets.emit("B_TT_W_22", arr_tag_value[119]);
+    io.sockets.emit("B_TT_W_23", arr_tag_value[120]);
+    io.sockets.emit("B_TT_W_24", arr_tag_value[121]);
+    io.sockets.emit("SO_CO_XE_W", arr_tag_value[122]);
+    io.sockets.emit("SO_KO_XE_W", arr_tag_value[123]);
+    io.sockets.emit("VT_CHECK_AUTO_W", arr_tag_value[124]);
+    io.sockets.emit("BIEN_SO_W", arr_tag_value[125]);
+    io.sockets.emit("MAU_XE_W", arr_tag_value[126]);
+    io.sockets.emit("T_G_VAO_W", arr_tag_value[127]);
+    io.sockets.emit("T_G_RA_W", arr_tag_value[128]);
+    io.sockets.emit("THANH_TIEN_W", arr_tag_value[129]);
 }
 // ///////////GỬI DỮ LIỆU BẢNG TAG ĐẾN CLIENT (TRÌNH DUYỆT)///////////
 io.on("connection", function(socket){
