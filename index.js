@@ -87,7 +87,7 @@ var tags_list = {
     B24_W: 'DB100,X4.1', 
     B_IN_W: 'DB100,X4.2', 
     B_OUT_W: 'DB100,X4.3', 
-    B_CASE_W: 'DB100,X4.4', 
+    B_HUY_W: 'DB100,X4.4', 
     B_GUI_W: 'DB100,X4.5', 
     B_LAY_W: 'DB100,X4.6', 
     B_CHUAN_TANG_W: 'DB100,X4.7', 
@@ -228,7 +228,7 @@ function PLC_connected(err) {
       'B24_W', 
       'B_IN_W', 
       'B_OUT_W', 
-      'B_CASE_W', 
+      'B_HUY_W', 
       'B_GUI_W', 
       'B_LAY_W', 
       'B_CHUAN_TANG_W', 
@@ -463,7 +463,7 @@ function fn_tag(){
     io.sockets.emit("B24_W", arr_tag_value[33]);
     io.sockets.emit("B_IN_W", arr_tag_value[34]);
     io.sockets.emit("B_OUT_W", arr_tag_value[35]);
-    io.sockets.emit("B_CASE_W", arr_tag_value[36]);
+    io.sockets.emit("B_HUY_W", arr_tag_value[36]);
     io.sockets.emit("B_GUI_W", arr_tag_value[37]);
     io.sockets.emit("B_LAY_W", arr_tag_value[38]);
     io.sockets.emit("B_CHUAN_TANG_W", arr_tag_value[39]);
