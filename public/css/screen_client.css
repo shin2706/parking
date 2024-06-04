@@ -243,3 +243,110 @@
     width: 105px; height: 50px;
     left: 965px; top: 290px;
 }
+
+#lb_infor{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 10px;
+  padding: 10px;
+}
+
+#txt_infor{
+  position: absolute;
+  font-size: 22px;
+  font-family: "Times New Roman", Times, serif;
+  width: 100px; height: 30px;
+  left: 110px; top: 15px;
+}
+
+#lb_idcar_c2{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 60px;
+  padding: 10px;
+}
+
+#txt_idcar_c2{
+  position: absolute;
+  width: 135px; height: 30px;
+  left: 120px; top: 65px;
+}
+
+#lb_colorcar_c2{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 110px;
+  padding: 10px;
+}
+
+#txt_colorcar_c2{
+  position: absolute;
+  width: 125px; height: 30px;
+  left: 170px; top: 115px;
+}
+
+#lb_intime_c2{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 160px;
+  padding: 10px;
+}
+
+#txt_intime_c2{
+  position: absolute;
+  width: 255px; height: 30px;
+  left: 325px; top: 165px;
+}
+
+#lb_duration_c2{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 210px;
+  padding: 10px;
+}
+
+#txt_duration_c2{
+  position: absolute;
+  width: 310px; height: 30px;
+  left: 270px; top: 215px;
+}
+
+#lb_idcar_c3{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 10px;
+  padding: 10px;
+}
+
+#txt_idcar_c3{
+  position: absolute;
+  width: 150px; height: 30px;
+  left: 115px; top: 15px;
+}
+
+#lb_colorcar_c3{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 20px; top: 60px;
+  padding: 10px;
+}
+
+#txt_colorcar_c3{
+  position: absolute;
+  width: 130px; height: 30px;
+  left: 170px; top: 65px;
+}

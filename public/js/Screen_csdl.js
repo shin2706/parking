@@ -25,6 +25,7 @@ function fn_table_01(data){
                         +"</td><td style='text-align: center;'>"+data[i].Color
                         +"</td><td style='text-align: center;'>"+data[i].Time_In
                         +"</td><td style='text-align: center;'>"+data[i].Time_Out
+                        +"</td><td style='text-align: center;'>"+data[i].Position
                         +"</td><td style='text-align: center;'>"+data[i].Price
                         +"</td><td style='text-align: center;'>"+data[i].Member
                         +"</td></tr>";
@@ -132,6 +133,25 @@ function fn_SQL_By_Color_Car()
 
     socket.emit('msg_SQL_ByColor_Car', val);
     socket.on('SQL_ByColor_Car', function(data){
+        fn_table_01(data); // Show sdata
+    });
+}
+
+function fn_SQL_By_Position_Car()
+{
+    var Position_car = document.getElementById('txt_ValueToSearch_Position_Car').value;
+
+    // Kiểm tra nếu ô nhập liệu thời gian không có giá trị
+    if (Position_car === '') {
+        alert('Vui lòng nhập đầy đủ để tìm kiếm.');
+        return; // Dừng hàm nếu không đủ thời gian
+    }
+
+    // Đóng gói giá trị và thời gian vào một mảng
+    var val = Position_car;
+
+    socket.emit('msg_SQL_ByPosition_Car', val);
+    socket.on('SQL_ByPosition_Car', function(data){
         fn_table_01(data); // Show sdata
     });
 }

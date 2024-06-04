@@ -114,13 +114,19 @@
 #txt_ValueToSearch_Num_Car{
     position: absolute;
     width: 100px; height: 30px;
-    left: 630px; top: 30px;
+    left: 520px; top: 43px;
 }
 
 #txt_ValueToSearch_Color_Car{
     position: absolute;
     width: 100px; height: 30px;
-    left: 955px; top: 30px;
+    left: 755px; top: 42px;
+}
+
+#txt_ValueToSearch_Position_Car{
+    position: absolute;
+    width: 100px; height: 30px;
+    left: 987px; top: 42px;
 }
 
 #lb_So_xe{
@@ -128,7 +134,7 @@
     color: rgb(26, 24, 24);
     font-size: 14px;
     font-weight: normal;
-    left: 515px; top: 30px;
+    left: 513px; top: 10px;
     padding: 10px;
 }
 
@@ -137,7 +143,16 @@
     color: rgb(26, 24, 24);
     font-size: 14px;
     font-weight: normal;
-    left: 855px; top: 30px;
+    left: 755px; top: 10px;
+    padding: 10px;
+}
+
+#lb_Vitri_xe{
+    position: absolute;
+    color: rgb(26, 24, 24);
+    font-size: 14px;
+    font-weight: normal;
+    left: 980px; top: 10px;
     padding: 10px;
 }
 
@@ -152,7 +167,7 @@
     font-weight: bold;
     cursor: pointer;
     width: 105px; height: 50px;
-    left: 735px; top: -10px;
+    left: 622px; top: -10px;
 }
 
 #btt_Search_color_car{
@@ -166,7 +181,21 @@
     font-weight: bold;
     cursor: pointer;
     width: 105px; height: 50px;
-    left: 1060px; top: -10px;
+    left: 855px; top: -10px;
+}
+
+#btt_Search_Position_car{
+    position: absolute;
+    border: none;
+    background-color: DodgerBlue;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 105px; height: 50px;
+    left: 1085px; top: -10px;
 }
 
 #btt_Search_KHTT{

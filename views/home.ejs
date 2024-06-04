@@ -475,6 +475,11 @@
                 <button id="btt_Search_color_car" class="btn" onclick="fn_SQL_By_Color_Car();
                 "></i> SEARCH COLOR CAR</button>
 
+                <label id="lb_Vitri_xe">POSITION CAR:</label>
+                <input id="txt_ValueToSearch_Position_Car" type="text">
+                <button id="btt_Search_Position_car" class="btn" onclick="fn_SQL_By_Position_Car();
+                "></i> SEARCH POSITION CAR</button>
+
                 <button id="btt_Search_KHTT" class="btn" onclick="fn_Table01_SQL_KHTT();
                 "></i>KHÁCH HÀNG THÂN THIẾT</button>
 
@@ -495,6 +500,7 @@
                             <th>Color</th>
                             <th>Time In</th>
                             <th>Time Out</th>
+                            <th>Position</th>
                             <th>Price</th>
                             <th>Member</th>
                         </tr>
@@ -558,10 +564,33 @@
 
             </div>
             <div class="c2"> 
-                <button id="btt_Cancel" class="btn" 
-                ></i> CANCEL</button>
+
+                <label id="lb_infor">INFOR:</label>
+                <input id="txt_infor" type="text">
+
+                <label id="lb_idcar_c2">ID CAR:</label>
+                <input id="txt_idcar_c2" type="text">
+
+                <label id="lb_colorcar_c2">COLOR CAR:</label>
+                <input id="txt_colorcar_c2" type="text">
+
+                <label id="lb_intime_c2">A STORAGE POINT IN TIME:</label>
+                <input id="txt_intime_c2" type="text">
+
+                <label id="lb_duration_c2">OCCUPIED DURATION:</label>
+                <input id="txt_duration_c2" type="text">
+
+                <button id="btt_Cancel" class="btn" onmousedown="socket.emit('Client-send-huy',true);"  onmouseup="socket.emit('Client-send-huy',false);"></i> CANCEL</button>
             </div>
-            <div class="c3"></div>
+            <div class="c3">
+
+                <label id="lb_idcar_c3">ID CAR:</label>
+                <input id="txt_idcar_c3" type="text" style="border: none">
+
+                <label id="lb_colorcar_c3">COLOR CAR:</label>
+                <input id="txt_colorcar_c3" type="text">
+
+            </div>
       </div>
 
         <div id="Screen_HOME">

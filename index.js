@@ -397,7 +397,7 @@ io.on("connection", function(socket){
     socket.on("Client-send-quay", function(data){conn_plc.writeItems('B_W_QUAY', data, valuesWritten);});
     socket.on("Client-send-ra", function(data){conn_plc.writeItems('B_W_RA', data, valuesWritten);});
     socket.on("Client-send-vo", function(data){conn_plc.writeItems('B_W_VAO', data, valuesWritten);});
-    socket.on("Client-send-case", function(data){conn_plc.writeItems('B_CASE_W', data, valuesWritten);});
+    socket.on("Client-send-huy", function(data){conn_plc.writeItems('B_HUY_W', data, valuesWritten);});
     socket.on("Client-send-T-1", function(data){conn_plc.writeItems('B_TT_W_1', data, valuesWritten);});
     socket.on("Client-send-T-2", function(data){conn_plc.writeItems('B_TT_W_2', data, valuesWritten);});
     socket.on("Client-send-T-3", function(data){conn_plc.writeItems('B_TT_W_3', data, valuesWritten);});
@@ -570,6 +570,7 @@ io.on("connection", function(socket){
     fn_SQLSearch_ByTime_Out();
     fn_SQLSearch_ByNum_Car();
     fn_SQLSearch_ByColor_Car();
+    fn_SQLSearch_ByPosition_Car();
     fn_SQLSearch_KHTT();
     fn_Require_ExcelExport(); // Nhận yêu cầu xuất Excel
 });
@@ -588,7 +589,7 @@ var sqlcon = mysql.createConnection({
 
 function fn_sql_insert(){
     insert_trigger = arr_tag_value[0];		// Read trigger from PLC
-    var sqltable_Name = "parking";
+    var sqltable_Name = "parking_auto";
     // Lấy thời gian hiện tại
 	var tzoffset = (new Date()).getTimezoneOffset() * 60000; //Vùng Việt Nam (GMT7+)
 	var temp_datenow = new Date();
@@ -630,7 +631,7 @@ function fn_SQLSearch(){
     io.on("connection", function(socket){
         socket.on("msg_SQL_Show", function(data)
         {
-            var sqltable_Name = "parking";
+            var sqltable_Name = "parking_auto";
             var queryy1 = "SELECT * FROM " + sqltable_Name + ";"
             sqlcon.query(queryy1, function(err, results, fields) {
                 if (err) {
@@ -652,7 +653,7 @@ function fn_SQLSearch_KHTT(){
     io.on("connection", function(socket){
         socket.on("msg_SQL_KHTT", function(data)
         {
-            var sqltable_Name = "parking";
+            var sqltable_Name = "parking_auto";
             var dt_col_Name = "Member";  // Tên cột thời gian
             var queryy1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name +  "='Khách hàng thân thiết';";
             sqlcon.query(queryy1, function(err, results, fields) {
@@ -696,7 +697,7 @@ function fn_SQLSearch_ByTime(){
             var timeE1 = "'" + formattedDatetime2 + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking"; // Tên bảng
+            var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Time_In";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -740,7 +741,7 @@ function fn_SQLSearch_ByTime_In1(){
             var timeE1 = "'" + (new Date(timeE - tzoffset)).toISOString().slice(0, -1).replace("T"," ") + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking"; // Tên bảng
+            var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Time_In";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -775,7 +776,7 @@ function fn_SQLSearch_ByTime_In(){
             var timeE1 = "'" + (new Date(timeE - tzoffset)).toISOString().slice(0, -1).replace("T"," ") + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking"; // Tên bảng
+            var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Time_In";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -809,7 +810,7 @@ function fn_SQLSearch_ByTime_Out(){
             var timeE1 = "'" + (new Date(timeE - tzoffset)).toISOString().slice(0, -1).replace("T"," ") + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking"; // Tên bảng
+            var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Time_Out";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -835,7 +836,7 @@ function fn_SQLSearch_ByNum_Car(){
         socket.on("msg_SQL_ByNum_Car", function(data)
         {
             var Numcar = data;
-            var sqltable_Name = "parking"; // Tên bảng
+            var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Num";  // Tên cột thời gian
 
             var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='" + Numcar + "';";
@@ -860,7 +861,7 @@ function fn_SQLSearch_ByColor_Car(){
         socket.on("msg_SQL_ByColor_Car", function(data)
         {
             var Colorcar = data;
-            var sqltable_Name = "parking"; // Tên bảng
+            var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Color";  // Tên cột thời gian
 
             var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='" + Colorcar + "';";
@@ -873,6 +874,31 @@ function fn_SQLSearch_ByColor_Car(){
                     const convertedResponse = results.map(objectifyRawPacket);
                     SQL_Excel = convertedResponse; // Xuất báo cáo Excel
                     socket.emit('SQL_ByColor_Car', convertedResponse);
+                }
+            });
+        });
+    });
+}
+
+// Đọc dữ liệu SQL theo thời gian
+function fn_SQLSearch_ByPosition_Car(){
+    io.on("connection", function(socket){
+        socket.on("msg_SQL_ByPosition_Car", function(data)
+        {
+            var Positioncar = data;
+            var sqltable_Name = "parking_auto"; // Tên bảng
+            var dt_col_Name = "Position";  // Tên cột thời gian
+
+            var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='Vị trí " + Positioncar + "';";
+
+            sqlcon.query(Query, function(err, results, fields) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const objectifyRawPacket = row => ({...row});
+                    const convertedResponse = results.map(objectifyRawPacket);
+                    SQL_Excel = convertedResponse; // Xuất báo cáo Excel
+                    socket.emit('SQL_ByPosition_Car', convertedResponse);
                 }
             });
         });
