@@ -175,12 +175,12 @@ var tags_list = {
     B_TT_W_24: 'DB100,X20.1',
     SO_CO_XE_W: 'DB100,INT22',
     SO_KO_XE_W: 'DB100,INT24', 
-    VT_CHECK_AUTO_W: 'DB100,INT26', 
-    BIEN_SO_W: 'DB100,S28.256', 
-    MAU_XE_W: 'DB100,S284.256', 
-    T_G_VAO_W: 'DB100,S540.256', 
-    T_G_RA_W: 'DB100,S796.256', 
-    THANH_TIEN_W: 'DB100,S1052.256'
+    VT_CHECK_AUTO_W: 'DB100,S26.256', 
+    BIEN_SO_W: 'DB100,S282.256', 
+    MAU_XE_W: 'DB100,S538.256', 
+    T_G_VAO_W: 'DB100,S794.256', 
+    T_G_RA_W: 'DB100,S1050.256', 
+    THANH_TIEN_W: 'DB100,S1306.256'
     
 };
 
@@ -1134,15 +1134,15 @@ function fn_excelExport(){
     worksheet.getCell('B3').value = 'Hotline: + 0999 999 999';
     // Tên báo cáo
     worksheet.getCell('A5').value = 'BÁO CÁO';
-    worksheet.mergeCells('A5:I5');
+    worksheet.mergeCells('A5:J5');
     worksheet.getCell('A5').style = { font:{name: 'Times New Roman', bold: true,size: 16},alignment: {horizontal:'center',vertical: 'middle'}} ;
     // Ngày in biểu
-    worksheet.getCell('I6').value = "Ngày in biểu: " + dayName + date + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + seconds;
-    worksheet.getCell('I6').style = { font:{bold: false, italic: true},alignment: {horizontal:'right',vertical: 'bottom',wrapText: false}} ;
+    worksheet.getCell('J6').value = "Ngày in biểu: " + dayName + date + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + seconds;
+    worksheet.getCell('J6').style = { font:{bold: false, italic: true},alignment: {horizontal:'right',vertical: 'bottom',wrapText: false}} ;
     
     // Tên nhãn các cột
     var rowpos = 7;
-    var collumName = ["STT","ID", "Num", "Color", "Time In", "Time Out", "Price", "Member", "Ghi chú"]
+    var collumName = ["STT","ID", "Num", "Color", "Time In", "Time Out", "Position", "Price", "Member", "Ghi chú"]
     worksheet.spliceRows(rowpos, 1, collumName);
     
     // =====================XUẤT DỮ LIỆU EXCEL SQL=====================
@@ -1159,6 +1159,7 @@ function fn_excelExport(){
           {key: 'Color'},
           {key: 'Time_In'},
           {key: 'Time_Out'},
+          {key: 'Position'},
           {key: 'Price'},
           {key: 'Member'}
         ]
@@ -1174,7 +1175,7 @@ function fn_excelExport(){
     
     // =====================STYLE CHO CÁC CỘT/HÀNG=====================
     // Style các cột nhãn
-    const HeaderStyle = ['A','B', 'C', 'D', 'E','F','G','H','I']
+    const HeaderStyle = ['A','B', 'C', 'D', 'E','F','G','H','I',,'J']
     HeaderStyle.forEach((v) => {
         worksheet.getCell(`${v}${rowpos}`).style = { font:{bold: true},alignment: {horizontal:'center',vertical: 'middle',wrapText: true}} ;
         worksheet.getCell(`${v}${rowpos}`).border = {
@@ -1195,15 +1196,16 @@ function fn_excelExport(){
     worksheet.getColumn(5).width = 30;
     worksheet.getColumn(6).width = 30;
     worksheet.getColumn(7).width = 20;
-    worksheet.getColumn(8).width = 35;
+    worksheet.getColumn(8).width = 20;
     worksheet.getColumn(9).width = 35;
+    worksheet.getColumn(10).width = 35;
     // ++++++++++++Style cho các hàng dữ liệu++++++++++++
     worksheet.eachRow({ includeEmpty: true }, function (row, rowNumber) {
       var datastartrow = rowpos;
       var rowindex = rowNumber + datastartrow;
       const rowlength = datastartrow + SQL_Excel.length
       if(rowindex >= rowlength+1){rowindex = rowlength+1}
-      const insideColumns = ['A','B', 'C', 'D', 'E','F','G','H','I']
+      const insideColumns = ['A','B', 'C', 'D', 'E','F','G','H','I','J']
     // Tạo border
       insideColumns.forEach((v) => {
           // Border
@@ -1220,23 +1222,23 @@ function fn_excelExport(){
     
     
     // =====================THẾT KẾ FOOTER=====================
-    worksheet.getCell(`I${totalNumberOfRows+2}`).value = 'Ngày …………tháng ……………năm 20………';
-    worksheet.getCell(`I${totalNumberOfRows+2}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'right',vertical: 'middle',wrapText: false}} ;
+    worksheet.getCell(`J${totalNumberOfRows+2}`).value = 'Ngày …………tháng ……………năm 20………';
+    worksheet.getCell(`J${totalNumberOfRows+2}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'right',vertical: 'middle',wrapText: false}} ;
     
     worksheet.getCell(`B${totalNumberOfRows+3}`).value = 'Giám đốc';
     worksheet.getCell(`B${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
     worksheet.getCell(`B${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
     worksheet.getCell(`B${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
     
-    worksheet.getCell(`E${totalNumberOfRows+3}`).value = 'Trưởng ca';
-    worksheet.getCell(`E${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
-    worksheet.getCell(`E${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
-    worksheet.getCell(`E${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
+    worksheet.getCell(`F${totalNumberOfRows+3}`).value = 'Trưởng ca';
+    worksheet.getCell(`F${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
+    worksheet.getCell(`F${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
+    worksheet.getCell(`F${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
     
-    worksheet.getCell(`I${totalNumberOfRows+3}`).value = 'Người in biểu';
-    worksheet.getCell(`I${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
-    worksheet.getCell(`I${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
-    worksheet.getCell(`I${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
+    worksheet.getCell(`J${totalNumberOfRows+3}`).value = 'Người in biểu';
+    worksheet.getCell(`J${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
+    worksheet.getCell(`J${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
+    worksheet.getCell(`J${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
     
     
     

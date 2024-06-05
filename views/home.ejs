@@ -200,9 +200,9 @@
             </div>
 
             <div class="h3">
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_park" class="btn btn-park" onmousedown="socket.emit('Client-send-park',true);"  onmouseup="socket.emit('Client-send-park',false);">PARK</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_park" class="btn btn-park" onmousedown="socket.emit('Client-send-park',true);"  onmouseup="socket.emit('Client-send-park',false);">PUT</button>
 
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_retrieve" class="btn btn-retrieve" onmousedown="socket.emit('Client-send-retrieve',true);"  onmouseup="socket.emit('Client-send-retrieve',false);">RETRIEVE</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_retrieve" class="btn btn-retrieve" onmousedown="socket.emit('Client-send-retrieve',true);"  onmouseup="socket.emit('Client-send-retrieve',false);">TAKE</button>
             
                     
                 <img id = "thanh_muc_park" ><script> fn_SymbolStatus("thanh_muc_park", "thanh_muc", "BIT_GUI_W") </script>
@@ -371,39 +371,39 @@
 
                 <button id="HMI_JOG_1_Servo_Tlug-btn1_shome" class="btn btn-sethome" onmousedown="socket.emit('Client-send-shome',true);"  onmouseup="socket.emit('Client-send-shome',false);">SET HOME</button>
                 
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_chuan" class="btn btn-chuan" onmousedown="socket.emit('Client-send-chuan',true);"  onmouseup="socket.emit('Client-send-chuan',false);">chuan</button>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_chuan" class="btn btn-chuan" onmousedown="socket.emit('Client-send-chuan',true);"  onmouseup="socket.emit('Client-send-chuan',false);">CONTROL</button>
 
-                <button class="btn btn-dlen" id="dlen" onclick= "socket.emit('Client-send-len', false); fn_DataEdit('len','dlen');">DỪNG LÊN</button>
-                <button class="btn btn-len" id="len" onclick= "socket.emit('Client-send-len', true); fn_DataEdit('dlen','len');">LÊN</button>
+                <button class="btn btn-dlen" id="dlen" onclick= "socket.emit('Client-send-len', false); fn_DataEdit('len','dlen');">STOP UP</button>
+                <button class="btn btn-len" id="len" onclick= "socket.emit('Client-send-len', true); fn_DataEdit('dlen','len');">UP</button>
 
-                <button class="btn btn-dxuong" id="dxuong" onclick= "socket.emit('Client-send-xuong', false); fn_DataEdit('xuong','dxuong');">DỪNG XUỐNG</button>
-                <button class="btn btn-xuong" id="xuong" onclick= "socket.emit('Client-send-xuong', true); fn_DataEdit('dxuong','xuong');">XUỐNG</button>
+                <button class="btn btn-dxuong" id="dxuong" onclick= "socket.emit('Client-send-xuong', false); fn_DataEdit('xuong','dxuong');">STOP DOWN</button>
+                <button class="btn btn-xuong" id="xuong" onclick= "socket.emit('Client-send-xuong', true); fn_DataEdit('dxuong','xuong');">DOWN</button>
 
-                <button class="btn btn-dquay" id="dquay" onclick= "socket.emit('Client-send-quay', false); fn_DataEdit('quay','dquay');">DỪNG QUAY</button>
-                <button class="btn btn-quay" id="quay" onclick= "socket.emit('Client-send-quay', true); fn_DataEdit('dquay','quay');">QUAY</button>
+                <button class="btn btn-dquay" id="dquay" onclick= "socket.emit('Client-send-quay', false); fn_DataEdit('quay','dquay');">STOP SPIN</button>
+                <button class="btn btn-quay" id="quay" onclick= "socket.emit('Client-send-quay', true); fn_DataEdit('dquay','quay');">SPIN</button>
 
-                <button class="btn btn-dra" id="dra" onclick= "socket.emit('Client-send-ra', false); fn_DataEdit('ra','dra');">DỪNG RA</button>
-                <button class="btn btn-ra" id="ra" onclick= "socket.emit('Client-send-ra', true); fn_DataEdit('dra','ra');">RA</button>
+                <button class="btn btn-dra" id="dra" onclick= "socket.emit('Client-send-ra', false); fn_DataEdit('ra','dra');">STOP OUT</button>
+                <button class="btn btn-ra" id="ra" onclick= "socket.emit('Client-send-ra', true); fn_DataEdit('dra','ra');">OUT</button>
 
-                <button class="btn btn-dvo" id="dvo" onclick= "socket.emit('Client-send-vo', false); fn_DataEdit('vo','dvo');">DỪNG VÔ</button>
-                <button class="btn btn-vo" id="vo" onclick= "socket.emit('Client-send-vo', true); fn_DataEdit('dvo','vo');">VÔ</button>
+                <button class="btn btn-dvo" id="dvo" onclick= "socket.emit('Client-send-vo', false); fn_DataEdit('vo','dvo');">STOP IN</button>
+                <button class="btn btn-vo" id="vo" onclick= "socket.emit('Client-send-vo', true); fn_DataEdit('dvo','vo');">IN</button>
 
-                <button class="btn btn-luugoc" id="btt_S2_Save" onclick= "fn_S2_SaveBtt()">LƯU</button>  
-                <button class="btn btn-suagoc" id="btt_S2_Edit" onclick= "fn_S2_EditBtt()">SỬA</button>   
+                <button class="btn btn-luugoc" id="btt_S2_Save" onclick= "fn_S2_SaveBtt()">SAVE</button>  
+                <button class="btn btn-suagoc" id="btt_S2_Edit" onclick= "fn_S2_EditBtt()">EDIT</button>   
 
-                <label class="text1">GOC QUAY:</label>
+                <label class="text1">ANGLE:</label>
                 <input id="gocquay" disabled="disabled" type="text"/>
                 <script>fn_S2_IOField_IO("GOC_QUAY_W", "gocquay", 2)</script>
 
-                <label class="text2">Vị trí có xe:</label>
+                <label class="text2">OCCUPIED:</label>
                 <input id="vtcx" disabled="disabled" type="text"/>
                 <script>fn_IOFieldDataShow("SO_CO_XE_W", "vtcx", 0)</script>
 
-                <label class="text3">Vị Trí Trống:</label>
+                <label class="text3">UNOCCUPIED:</label>
                 <input id="vtt" disabled="disabled" type="text"/>
                 <script>fn_IOFieldDataShow("SO_KO_XE_W", "vtt", 0)</script>
 
-                <label class="text4">Hiện Ở:</label>
+                <label class="text4">CURRENT POSITION:</label>
                 <input id="hot" disabled="disabled" type="text"/>
                 <script>fn_IOFieldDataShow("VT_CHECK_AUTO_W", "hot", 0)</script>
 
