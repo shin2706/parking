@@ -180,7 +180,20 @@ var tags_list = {
     MAU_XE_W: 'DB100,S538.256', 
     T_G_VAO_W: 'DB100,S794.256', 
     T_G_RA_W: 'DB100,S1050.256', 
-    THANH_TIEN_W: 'DB100,S1306.256'
+    THANH_TIEN_W: 'DB100,S1306.256',
+    VI_TRI_TT_XE_W: 'DB100,INT1562', 
+    THONGTIN_TRUY_TT0_W: 'DB100,S1564.256', 
+    THONGTIN_TRUY_TT1_W: 'DB100,S1820.256', 
+    THONGTIN_TRUY_TT2_W: 'DB100,S2076.256', 
+    THONGTIN_TRUY_TT3_W: 'DB100,S2332.256', 
+    HMI_TT_VAO_RA_TT_W: 'DB100,S2588.256', 
+    TT_VAO_RA_TT0_W: 'DB100,S2844.256', 
+    TT_VAO_RA_TT1_W: 'DB100,S3100.256', 
+    HMI_TT_VAO_RA_C4_W: 'DB100,S3356.256', 
+    TT_VAO_RA_TT2_W: 'DB100,S3612.256', 
+    HMI_TT_VAO_RA_C6_W: 'DB100,S3868.256', 
+    TT_VAO_RA_TT3_W: 'DB100,S4124.256'
+    
     
 };
 
@@ -321,7 +334,20 @@ function PLC_connected(err) {
       'MAU_XE_W',
       'T_G_VAO_W',
       'T_G_RA_W',
-      'THANH_TIEN_W'
+      'THANH_TIEN_W',
+      'VI_TRI_TT_XE_W',
+      'THONGTIN_TRUY_TT0_W',
+      'THONGTIN_TRUY_TT1_W',
+      'THONGTIN_TRUY_TT2_W',
+      'THONGTIN_TRUY_TT3_W',
+      'HMI_TT_VAO_RA_TT_W',
+      'TT_VAO_RA_TT0_W',
+      'TT_VAO_RA_TT1_W',
+      'HMI_TT_VAO_RA_C4_W',
+      'TT_VAO_RA_TT2_W',
+      'HMI_TT_VAO_RA_C6_W',
+      'TT_VAO_RA_TT3_W'
+      
     ]);
 }
 
@@ -557,6 +583,18 @@ function fn_tag(){
     io.sockets.emit("T_G_VAO_W", arr_tag_value[127]);
     io.sockets.emit("T_G_RA_W", arr_tag_value[128]);
     io.sockets.emit("THANH_TIEN_W", arr_tag_value[129]);
+    io.sockets.emit("VI_TRI_TT_XE_W", arr_tag_value[130]);
+    io.sockets.emit("THONGTIN_TRUY_TT0_W", arr_tag_value[131]);
+    io.sockets.emit("THONGTIN_TRUY_TT1_W", arr_tag_value[132]);
+    io.sockets.emit("THONGTIN_TRUY_TT2_W", arr_tag_value[133]);
+    io.sockets.emit("THONGTIN_TRUY_TT3_W", arr_tag_value[134]);
+    io.sockets.emit("HMI_TT_VAO_RA_TT_W", arr_tag_value[135]);
+    io.sockets.emit("TT_VAO_RA_TT0_W", arr_tag_value[136]);
+    io.sockets.emit("TT_VAO_RA_TT1_W", arr_tag_value[137]);
+    io.sockets.emit("HMI_TT_VAO_RA_C4_W", arr_tag_value[138]);
+    io.sockets.emit("TT_VAO_RA_TT2_W", arr_tag_value[139]);
+    io.sockets.emit("HMI_TT_VAO_RA_C6_W", arr_tag_value[140]);
+    io.sockets.emit("TT_VAO_RA_TT3_W", arr_tag_value[141]);
 }
 // ///////////GỬI DỮ LIỆU BẢNG TAG ĐẾN CLIENT (TRÌNH DUYỆT)///////////
 io.on("connection", function(socket){
@@ -990,7 +1028,8 @@ function fn_Alarm_Manage(){
     }
     
     if (Alarm_ID1 && !Alarm_ID1_old){
-        fn_sql_alarm_insert(1, "ĐẠT GIỚI HẠN NGOÀI");
+        if(Alarm_ID1!=Alarm_ID1_old & Alarm_ID1==true ){
+        fn_sql_alarm_insert(1, "ĐẠT GIỚI HẠN NGOÀI");}
         fn_Alarm_Show();
     } if(Alarm_ID1 == false & Alarm_ID1 != Alarm_ID1_old) {
         fn_sql_alarm_ack(1);
@@ -998,7 +1037,8 @@ function fn_Alarm_Manage(){
     Alarm_ID1_old = Alarm_ID1;
     
     if (Alarm_ID2 && !Alarm_ID2_old){
-        fn_sql_alarm_insert(2, "ĐAT GIỚI HẠN TRONG");
+        if(Alarm_ID2!=Alarm_ID2_old & Alarm_ID2==true ){
+        fn_sql_alarm_insert(2, "ĐAT GIỚI HẠN TRONG");}
         fn_Alarm_Show();
     } if(Alarm_ID2 == false & Alarm_ID2 != Alarm_ID2_old) {
         fn_sql_alarm_ack(2);
@@ -1006,7 +1046,8 @@ function fn_Alarm_Manage(){
     Alarm_ID2_old = Alarm_ID2;
     
     if (Alarm_ID3 && !Alarm_ID3_old){
-        fn_sql_alarm_insert(3, "ĐẠT GIỚI HẠN TRÊN");
+        if(Alarm_ID3!=Alarm_ID3_old & Alarm_ID3==true ){
+        fn_sql_alarm_insert(3, "ĐẠT GIỚI HẠN TRÊN");}
         fn_Alarm_Show();
     } if(Alarm_ID3 == false & Alarm_ID3 != Alarm_ID3_old) {
         fn_sql_alarm_ack(3);
@@ -1014,7 +1055,8 @@ function fn_Alarm_Manage(){
     Alarm_ID3_old = Alarm_ID3;
 
     if (Alarm_ID4 && !Alarm_ID4_old){
-        fn_sql_alarm_insert(4, "ĐẠT GIỚI HẠN DƯỚI");
+        if(Alarm_ID4!=Alarm_ID4_old & Alarm_ID4==true ){
+        fn_sql_alarm_insert(4, "ĐẠT GIỚI HẠN DƯỚI");}
         fn_Alarm_Show();
     } if(Alarm_ID4 == false & Alarm_ID4 != Alarm_ID4_old) {
         fn_sql_alarm_ack(4);
@@ -1022,7 +1064,8 @@ function fn_Alarm_Manage(){
     Alarm_ID4_old = Alarm_ID4;
 
     if (Alarm_ID5 && !Alarm_ID5_old){
-        fn_sql_alarm_insert(5, "PHẠM VI GÓC QUAY TỪ -200 ĐẾN 160 ĐỘ");
+        if(Alarm_ID5!=Alarm_ID5_old & Alarm_ID5==true ){
+        fn_sql_alarm_insert(5, "PHẠM VI GÓC QUAY TỪ -200 ĐẾN 160 ĐỘ");}
         fn_Alarm_Show();
     } if(Alarm_ID5 == false & Alarm_ID5 != Alarm_ID5_old) {
         fn_sql_alarm_ack(5);
@@ -1030,7 +1073,8 @@ function fn_Alarm_Manage(){
     Alarm_ID5_old = Alarm_ID5;
 
     if (Alarm_ID6 && !Alarm_ID6_old){
-        fn_sql_alarm_insert(6, "HỆ CHƯA CHUẨN TẦNG, HÃY NHẤN CHUẨN");
+        if(Alarm_ID6!=Alarm_ID6_old & Alarm_ID6==true ){
+        fn_sql_alarm_insert(6, "HỆ CHƯA CHUẨN TẦNG, HÃY NHẤN CHUẨN");}
         fn_Alarm_Show();
     } if(Alarm_ID6 == false & Alarm_ID6 != Alarm_ID6_old) {
         fn_sql_alarm_ack(6);
@@ -1038,7 +1082,8 @@ function fn_Alarm_Manage(){
     Alarm_ID6_old = Alarm_ID6;
 
     if (Alarm_ID7 && !Alarm_ID7_old){
-        fn_sql_alarm_insert(7, "M3 ĐANG CHƯA ĐẠT GIỚI HẠNG TRONG");
+        if(Alarm_ID7!=Alarm_ID7_old & Alarm_ID7==true ){
+        fn_sql_alarm_insert(7, "M3 ĐANG CHƯA ĐẠT GIỚI HẠNG TRONG");}
         fn_Alarm_Show();
     } if(Alarm_ID7 == false & Alarm_ID7 != Alarm_ID7_old) {
         fn_sql_alarm_ack(7);
@@ -1046,7 +1091,8 @@ function fn_Alarm_Manage(){
     Alarm_ID7_old = Alarm_ID7;
 
     if (Alarm_ID8 && !Alarm_ID8_old){
-        fn_sql_alarm_insert(8, "HỆ CHƯA CHUẨN VỊ TRÍ");
+        if(Alarm_ID8!=Alarm_ID8_old & Alarm_ID8==true ){
+        fn_sql_alarm_insert(8, "HỆ CHƯA CHUẨN VỊ TRÍ");}
         fn_Alarm_Show();
     } if(Alarm_ID8 == false & Alarm_ID8 != Alarm_ID8_old) {
         fn_sql_alarm_ack(8);
@@ -1054,7 +1100,8 @@ function fn_Alarm_Manage(){
     Alarm_ID8_old = Alarm_ID8;
 
     if (Alarm_ID9 && !Alarm_ID9_old){
-        fn_sql_alarm_insert(9, "ĐÃ CÓ XE, KHÔNG THỂ GỬI THÊM XE");
+        if(Alarm_ID9!=Alarm_ID9_old & Alarm_ID9==true ){
+        fn_sql_alarm_insert(9, "ĐÃ CÓ XE, KHÔNG THỂ GỬI THÊM XE");}
         fn_Alarm_Show();
     } if(Alarm_ID9 == false & Alarm_ID9 != Alarm_ID9_old) {
         fn_sql_alarm_ack(9);

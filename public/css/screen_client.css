@@ -249,7 +249,7 @@
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 10px;
+  left: 40px; top: 40px;
   padding: 10px;
 }
 
@@ -258,7 +258,7 @@
   font-size: 22px;
   font-family: "Times New Roman", Times, serif;
   width: 100px; height: 30px;
-  left: 110px; top: 15px;
+  left: 130px; top: 45px;
 }
 
 #lb_idcar_c2{
@@ -266,14 +266,14 @@
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 60px;
+  left: 40px; top: 100px;
   padding: 10px;
 }
 
 #txt_idcar_c2{
   position: absolute;
-  width: 135px; height: 30px;
-  left: 120px; top: 65px;
+  width: 175px; height: 30px;
+  left: 140px; top: 105px;
 }
 
 #lb_colorcar_c2{
@@ -281,14 +281,14 @@
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 110px;
+  left: 40px; top: 160px;
   padding: 10px;
 }
 
 #txt_colorcar_c2{
   position: absolute;
   width: 125px; height: 30px;
-  left: 170px; top: 115px;
+  left: 190px; top: 165px;
 }
 
 #lb_intime_c2{
@@ -296,14 +296,14 @@
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 160px;
+  left: 40px; top: 220px;
   padding: 10px;
 }
 
 #txt_intime_c2{
   position: absolute;
-  width: 255px; height: 30px;
-  left: 325px; top: 165px;
+  width: 260px; height: 30px;
+  left: 345px; top: 225px;
 }
 
 #lb_duration_c2{
@@ -311,29 +311,48 @@
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 210px;
+  left: 40px; top: 280px;
   padding: 10px;
 }
 
 #txt_duration_c2{
   position: absolute;
   width: 310px; height: 30px;
-  left: 270px; top: 215px;
+  left: 295px; top: 285px;
 }
+
+
+#lb_vein_c3{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 40px; top: 40px;
+  padding: 10px;
+}
+
+#txt_vein_c3{
+  position: absolute;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 22px;
+  width: 455px; height: 30px;
+  left: 310px; top: 48px;
+}
+
 
 #lb_idcar_c3{
   position: absolute;
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 10px;
+  left: 40px; top: 100px;
   padding: 10px;
 }
 
 #txt_idcar_c3{
   position: absolute;
-  width: 150px; height: 30px;
-  left: 115px; top: 15px;
+  width: 175px; height: 30px;
+  left: 140px; top: 105px;
 }
 
 #lb_colorcar_c3{
@@ -341,12 +360,40 @@
   color: rgb(26, 24, 24);
   font-size: 22px;
   font-weight: normal;
-  left: 20px; top: 60px;
+  left: 40px; top: 160px;
   padding: 10px;
 }
 
 #txt_colorcar_c3{
   position: absolute;
+  width: 125px; height: 30px;
+  left: 190px; top: 165px;
+}
+
+#txt_C4_c3{
+  position: absolute;
+  font-size: 22px;
+  font-family: "Times New Roman", Times, serif;
+  width: 295px; height: 30px;
+  left: 48px; top: 220px;
+}
+
+#txt_TT2_c3{
+  position: absolute;
+  width: 260px; height: 30px;
+  left: 355px; top: 220px;
+}
+
+#txt_C6_c3{
+  position: absolute;
+  font-size: 22px;
+  font-family: "Times New Roman", Times, serif;
   width: 130px; height: 30px;
-  left: 170px; top: 65px;
+  left: 48px; top: 280px;
+}
+
+#txt_TT3_c3{
+  position: absolute;
+  width: 225px; height: 30px;
+  left: 185px; top: 280px;
 }

@@ -143,34 +143,34 @@
             <div class="container">
                 <div class="item" >
                     <div class="layer" >
-                        <h3>Title</h3>
-                            <img class="imgb" src="images\school\image-removebg-preview.png" alt="" width="300" height="250">
+                        <h3>Cơ sở hạ tầng và phần cứng</h3>
+                            <img class="imgb" src="images\school\image-removebg-preview.png" alt="" width="270" height="250">
                         <p>
                             Có 4 tầng. <br> Có 1 ngõ vào và 1 ngõ ra. <br> Có tổng cộng 24 chỗ đậu xe. <br> Mỗi tầng đề có cảm biến xác định tầng. <br> 
                             Dùng động cơ DC để xác định mỗi tầng. <br> Dùng động cơ DC để đưa đòn tay để lấy và trả xe. 
                             <br> Dùng Stepmotor để xác định các góc để đậu xe và lấy xe.
                         </p>
                     </div>
-                    <h4>Step 01</h4>
+                    <h4>01</h4>
                 </div>     
                 <div class="item" >
                     <div class="layer" >
-                        <h3>Title</h3>
+                        <h3>Giao diện Desktop giao tiếp với hệ thống PLC </h3>
                         <p>
                             Hệ thống còn dùng tính năng quẹt thẻ nhận diện biển số, màu xe và lưu dữ liệu về excel.
                         </p>
                     </div>
-                    <h4>Step 2</h4>
+                    <h4>02</h4>
                 </div>
                 <div class="item" >
                     <div class="layer" >
-                        <h3>Title</h3>
+                        <h3>Giao diện Wincc và Web giao tiếp với hệ thống PLC</h3>
                         <p>
                            Hệ thống còn có Scada để giám sát, bảo trì và điều khiển hệ thống. <br>
                            Hệ thống có thể điều khiển và giám sát qua internet bằng Web-Server.                             
                         </p>
                     </div>
-                    <h4>Step 03</h4>
+                    <h4>03</h4>
                 </div>
             </div>
             
@@ -567,28 +567,52 @@
 
                 <label id="lb_infor">INFOR:</label>
                 <input id="txt_infor" type="text">
+                <script>fn_IOFieldDataShow("VI_TRI_TT_XE_W", "txt_infor", 0)</script>
+                
 
                 <label id="lb_idcar_c2">ID CAR:</label>
                 <input id="txt_idcar_c2" type="text">
+                <script>fn_IOFieldDataShow("THONGTIN_TRUY_TT0_W", "txt_idcar_c2", 0)</script>
 
                 <label id="lb_colorcar_c2">COLOR CAR:</label>
                 <input id="txt_colorcar_c2" type="text">
+                <script>fn_IOFieldDataShow("THONGTIN_TRUY_TT1_W", "txt_colorcar_c2", 0)</script>
 
                 <label id="lb_intime_c2">A STORAGE POINT IN TIME:</label>
                 <input id="txt_intime_c2" type="text">
+                <script>fn_IOFieldDataShow("THONGTIN_TRUY_TT2_W", "txt_intime_c2", 0)</script>
 
                 <label id="lb_duration_c2">OCCUPIED DURATION:</label>
                 <input id="txt_duration_c2" type="text">
+                <script>fn_IOFieldDataShow("THONGTIN_TRUY_TT3_W", "txt_duration_c2", 0)</script>
 
                 <button id="btt_Cancel" class="btn" onmousedown="socket.emit('Client-send-huy',true);"  onmouseup="socket.emit('Client-send-huy',false);"></i> CANCEL</button>
             </div>
             <div class="c3">
 
+                <label id="lb_vein_c3">VEHICLE INFORMATION</label>
+                <input id="txt_vein_c3" type="text" style="border: none">
+                <script>fn_IOFieldDataShow("HMI_TT_VAO_RA_TT_W", "txt_vein_c3", 0)</script>
+
                 <label id="lb_idcar_c3">ID CAR:</label>
-                <input id="txt_idcar_c3" type="text" style="border: none">
+                <input id="txt_idcar_c3" type="text" >
+                <script>fn_IOFieldDataShow("TT_VAO_RA_TT0_W", "txt_idcar_c3", 0)</script>
 
                 <label id="lb_colorcar_c3">COLOR CAR:</label>
                 <input id="txt_colorcar_c3" type="text">
+                <script>fn_IOFieldDataShow("TT_VAO_RA_TT1_W", "txt_colorcar_c3", 0)</script>
+
+                <input id="txt_C4_c3" type="text" style="border: none">
+                <script>fn_IOFieldDataShow("HMI_TT_VAO_RA_C4_W", "txt_C4_c3", 0)</script>
+
+                <input id="txt_TT2_c3" type="text" style="border: none">
+                <script>fn_IOFieldDataShow("TT_VAO_RA_TT2_W", "txt_TT2_c3", 0)</script>
+
+                <input id="txt_C6_c3" type="text" style="border: none">
+                <script>fn_IOFieldDataShow("HMI_TT_VAO_RA_C6_W", "txt_C6_c3", 0)</script>
+
+                <input id="txt_TT3_c3" type="text" style="border: none">
+                <script>fn_IOFieldDataShow("TT_VAO_RA_TT3_W", "txt_TT3_c3", 0)</script>
 
             </div>
       </div>
@@ -604,25 +628,27 @@
             <div class="khungname">
                 <h2>TS.Nguyen Tu Duc</h2>
             </div>
-            <div class="khungimg"></div>
+            <div class="khungimg">
+                <img src="images\user.png" alt="" width="70" height="85" >
+            </div>
             <div class="khungnote"> <p>GVHD<p> </div>
             
             <div class="khungname_B">
                 <h2>Pham Truong Gia Bao</h2>
             </div>
-            <div class="khungimg_B"></div>
+            <div class="khungimg_B"><img src="images\user.png" alt="" width="70" height="85" ></div>
             <div class="khungnote_B"> <p>20151437<p> </div>
 
             <div class="khungname_T">
                 <h2>Ha Chi Thang</h2>
             </div>
-            <div class="khungimg_T"></div>
+            <div class="khungimg_T"><img src="images\user.png" alt="" width="70" height="85" ></div>
             <div class="khungnote_T"> <p>20151510<p> </div>
 
             <div class="khungname_H">
                 <h2>Nguyen Huu Hung</h2>
             </div>
-            <div class="khungimg_H"></div>
+            <div class="khungimg_H"><img src="images\user.png" alt="" width="70" height="85" ></div>
             <div class="khungnote_H"> <p>20151488<p> </div>
 
                 <div class="khungname_Hs">
