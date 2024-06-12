@@ -6,7 +6,7 @@
         <script src="js/FC1_Common.js"></script>
         <script src = "socket.io/socket.io.js"></script>
         <script>
-            var socket = io("localhost:3000") // IP tĩnh (hoặc IP động, hoặc localhost)
+            var socket = io("http://171.249.31.93:8000") // IP tĩnh (hoặc IP động, hoặc localhost)
         </script>
 
         <meta charset="UTF-8">
@@ -27,7 +27,7 @@
         <script src = "js/FC3_Excel_Export.js"></script>
         <script src = "js/plotly-2.8.3.min.js"></script>
         <script src = "js/FileSaver.js"></script>
-            <!-- ////////////// CHƯƠNG TRÌNH ĐĂNG NHẬP HỆ THỐNG //////////////   -->
+            <!-- ////////////// CHƯƠNG TRÌNH ĐĂNG NHẬP HỆ THỐNG //////////////   
         <div id="div_login">
             <div id="id01" class="modal">
                 <form id = "modal-content1" class="modal-content animate">
@@ -55,7 +55,7 @@
                 </div>
                 </form>
             </div>
-        </div>
+        </div>-->
    
     </head>
 
@@ -210,15 +210,17 @@
             </div>
 
             <div class="h4">
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_in" class="btn1 btn-ibo-in" onmousedown="socket.emit('Client-send-in',true);"  onmouseup="socket.emit('Client-send-in',false);">IN</button>
-                <script>fn_IOFieldDataShow2("Q_IN__W", "HMI_JOG_1_Servo_Tlug-btn1_in");</script>
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_out" class="btn1 btn-ibo-out" onmousedown="socket.emit('Client-send-out',true);"  onmouseup="socket.emit('Client-send-out',false);">OUT</button>
-                <script>fn_IOFieldDataShow2("Q_OUT_W", "HMI_JOG_1_Servo_Tlug-btn1_out");</script>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_run" class="btn btn-run" onmousedown="socket.emit('Client-send-run',true);"  onmouseup="socket.emit('Client-send-run',false);">RUN</button>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_reset" class="btn btn-reset" onmousedown="socket.emit('Client-send-reset',true);"  onmouseup="socket.emit('Client-send-reset',false);">RESET</button>
             </div>
 
             <div class="h5">
 
-                
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_in" class="btn1 btn-ibo-in" onmousedown="socket.emit('Client-send-in',true);"  onmouseup="socket.emit('Client-send-in',false);">IN</button>
+                <script>fn_IOFieldDataShow2("Q_IN__W", "HMI_JOG_1_Servo_Tlug-btn1_in");</script>
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_out" class="btn1 btn-ibo-out" onmousedown="socket.emit('Client-send-out',true);"  onmouseup="socket.emit('Client-send-out',false);">OUT</button>
+                <script>fn_IOFieldDataShow2("Q_OUT_W", "HMI_JOG_1_Servo_Tlug-btn1_out");</script>
 
                 <button id="HMI_JOG_1_Servo_Tlug-btn1_1" class="btn1 btn-1" onmousedown="socket.emit('Client-send-1',true);"  onmouseup="socket.emit('Client-send-1',false);">1</button>
                 <script>fn_IOFieldDataShow2("Q1_W", "HMI_JOG_1_Servo_Tlug-btn1_1");</script>
@@ -423,7 +425,7 @@
                     <p class="text">Cảm biến 2:</p> <img id = "thanh_muc_cb2" ><script> fn_SymbolStatus("thanh_muc_cb2", "thanh_muc", "CB2_W") </script>
                     <p class="text">Cảm biến 3:</p> <img id = "thanh_muc_cb3" ><script> fn_SymbolStatus("thanh_muc_cb3", "thanh_muc", "CB3_W") </script>
                     <p class="text">Cảm biến 4:</p> <img id = "thanh_muc_cb4" ><script> fn_SymbolStatus("thanh_muc_cb4", "thanh_muc", "CB4_W") </script>
-                    <p class="text">Cảm biến 5:</p> <img id = "thanh_muc_cb5" ><script> fn_SymbolStatus("thanh_muc_cb5", "thanh_muc", "CB5_W") </script>
+                  <!--<p class="text">Cảm biến 5:</p> <img id = "thanh_muc_cb5" ><script> fn_SymbolStatus("thanh_muc_cb5", "thanh_muc", "CB5_W") </script>-->  
                     <p class="text">CTHT 2:</p> <img id = "thanh_muc_ctht2" ><script> fn_SymbolStatus("thanh_muc_ctht2", "thanh_muc", "CTHT2_W") </script>
             </div>
 

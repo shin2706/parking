@@ -35,7 +35,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
-server.listen(3000);
+server.listen(8000);
 // Home calling
 app.get("/", function(req, res){
     res.render("home")
@@ -46,7 +46,7 @@ app.get("/", function(req, res){
 var nodes7 = require('nodes7');
 var conn_plc = new nodes7; //PLC1
 // Tạo địa chỉ kết nối (slot = 2 nếu là 300/400, slot = 1 nếu là 1200/1500)
-conn_plc.initiateConnection({port: 102, host: '192.168.1.21', rack: 0, slot: 1}, PLC_connected);
+conn_plc.initiateConnection({port: 102, host: '192.168.0.1', rack: 0, slot: 1}, PLC_connected);
 
 
 // Bảng tag trong Visual studio code
@@ -119,7 +119,7 @@ var tags_list = {
     Q24_W: 'DB100,X8.1',
     Q_IN__W: 'DB100,X8.2',
     Q_OUT_W: 'DB100,X8.3',
-    Q_CASE_W: 'DB100,X8.4',
+    B_RESET_W: 'DB100,X8.4',
     STT_SYSTEM_W: 'DB100,X8.5',
     BIT_AUTO_W: 'DB100,X8.6',
     BIT_MANUAL_W: 'DB100,X8.7',
@@ -135,7 +135,7 @@ var tags_list = {
     CB2_W: 'DB100,X10.1',
     CB3_W: 'DB100,X10.2',
     CB4_W: 'DB100,X10.3',
-    CB5_W: 'DB100,X10.4',
+    B_RUN_W: 'DB100,X10.4',
     CTHT1_W: 'DB100,X10.5',
     CTHT2_W: 'DB100,X10.6',
     GOC_QUAY_W: 'DB100,REAL12',
@@ -273,7 +273,7 @@ function PLC_connected(err) {
       'Q24_W',
       'Q_IN__W',
       'Q_OUT_W',
-      'Q_CASE_W',
+      'B_RESET_W',
       'STT_SYSTEM_W',
       'BIT_AUTO_W',
       'BIT_MANUAL_W',
@@ -289,7 +289,7 @@ function PLC_connected(err) {
       'CB2_W',
       'CB3_W',
       'CB4_W',
-      'CB5_W',
+      'B_RUN_W',
       'CTHT1_W',
       'CTHT2_W',
       'GOC_QUAY_W',
@@ -448,6 +448,8 @@ io.on("connection", function(socket){
     socket.on("Client-send-T-22", function(data){conn_plc.writeItems('B_TT_W_22', data, valuesWritten);});
     socket.on("Client-send-T-23", function(data){conn_plc.writeItems('B_TT_W_23', data, valuesWritten);});
     socket.on("Client-send-T-24", function(data){conn_plc.writeItems('B_TT_W_24', data, valuesWritten);});
+    socket.on("Client-send-run", function(data){conn_plc.writeItems('B_RUN_W', data, valuesWritten);});
+    socket.on("Client-send-reset", function(data){conn_plc.writeItems('B_RESET_W', data, valuesWritten);});
 });
 
 
@@ -521,7 +523,7 @@ function fn_tag(){
     io.sockets.emit("Q24_W", arr_tag_value[65]);
     io.sockets.emit("Q_IN__W", arr_tag_value[66]);
     io.sockets.emit("Q_OUT_W", arr_tag_value[67]);
-    io.sockets.emit("Q_CASE_W", arr_tag_value[68]);
+    io.sockets.emit("B_RESET_W", arr_tag_value[68]);
     io.sockets.emit("STT_SYSTEM_W", arr_tag_value[69]);
     io.sockets.emit("BIT_AUTO_W", arr_tag_value[70]);
     io.sockets.emit("BIT_MANUAL_W", arr_tag_value[71]);
@@ -537,7 +539,7 @@ function fn_tag(){
     io.sockets.emit("CB2_W", arr_tag_value[81]);
     io.sockets.emit("CB3_W", arr_tag_value[82]);
     io.sockets.emit("CB4_W", arr_tag_value[83]);
-    io.sockets.emit("CB5_W", arr_tag_value[84]);
+    io.sockets.emit("B_RUN_W", arr_tag_value[84]);
     io.sockets.emit("CTHT1_W", arr_tag_value[85]);
     io.sockets.emit("CTHT2_W", arr_tag_value[86]);
     io.sockets.emit("GOC_QUAY_W", arr_tag_value[87]);
@@ -927,7 +929,7 @@ function fn_SQLSearch_ByPosition_Car(){
             var sqltable_Name = "parking_auto"; // Tên bảng
             var dt_col_Name = "Position";  // Tên cột thời gian
 
-            var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='Vị trí " + Positioncar + "';";
+            var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='" + Positioncar + "';";
 
             sqlcon.query(Query, function(err, results, fields) {
                 if (err) {

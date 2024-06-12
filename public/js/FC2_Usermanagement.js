@@ -28,6 +28,6 @@ function login()
 function logout() // Ctrinh login
 {
     alert("Đăng xuất thành công");
-    window.location.href = 'AUTO PARKING';
+    window.location.href = '';
 }
 

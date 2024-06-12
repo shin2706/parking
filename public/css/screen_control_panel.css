@@ -183,11 +183,25 @@
   top: 0px;
 }
 
+.btn-run{
+  background-color: blue;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+}
+
+.btn-reset{
+  background-color: #d9bba1;
+  position: absolute;
+  left: 160px;
+  top: 0px;
+}
+
 .btn-ibo-in{
   background-color: #118b58;
   position: absolute;
-  left: 50px;
-  top: 10px;
+  left: 365px;
+  top: 715px;
   width: 70px;
   height: 70px;
 }
@@ -204,8 +218,8 @@
 .btn-ibo-out{
   background-color: #118b58;
   position: absolute;
-  left: 170px;
-  top: 10px;
+  left: 60px;
+  top: 715px;
   width: 70px;
   height: 70px;
 }
@@ -864,7 +878,7 @@
   height: 10px;
   position: absolute;
   left: 111px;
-  top: 217px;
+  top: 182px;
   border-radius: 4px;
 }
 
