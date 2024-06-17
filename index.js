@@ -51,10 +51,10 @@ conn_plc.initiateConnection({port: 102, host: '192.168.0.1', rack: 0, slot: 1}, 
 
 // Bảng tag trong Visual studio code
 var tags_list = {
-    sql_insert_Trigger: 'DB100,X0.0', // Trigger ghi dữ liệu xuống SQL
-    B_W_ON_SYSTEM: 'DB100,X0.1',           // Dữ liệu dạng bool
-    B_W_OFF_SYSTEM: 'DB100,X0.2',          // Dữ liệu dạng Byte
-    B_W_AUTO: 'DB100,X0.3',        // Dữ liệu dạng số nguyên integer
+    sql_insert_Trigger: 'DB100,X0.0', 
+    B_W_ON_SYSTEM: 'DB100,X0.1',          
+    B_W_OFF_SYSTEM: 'DB100,X0.2',        
+    B_W_AUTO: 'DB100,X0.3',       
     B_W_MANUAL: 'DB100,X0.4',
     B_W_RA: 'DB100,X0.5',    
     B_W_VAO: 'DB100,X0.6',    
@@ -64,7 +64,7 @@ var tags_list = {
     B1_W: 'DB100,X1.2',    
     B2_W: 'DB100,X1.3', 
     B3_W: 'DB100,X1.4', 
-    B4_W: 'DB100,X1.5',              // Dữ liệu dạng số thực real
+    B4_W: 'DB100,X1.5',             
     B5_W: 'DB100,X1.6', 
     B6_W: 'DB100,X1.7', 
     B7_W: 'DB100,X2.0', 
@@ -190,9 +190,9 @@ var tags_list = {
     TT_VAO_RA_TT0_W: 'DB100,S2844.256', 
     TT_VAO_RA_TT1_W: 'DB100,S3100.256', 
     HMI_TT_VAO_RA_C4_W: 'DB100,S3356.256', 
-    TT_VAO_RA_TT2_W: 'DB100,S3612.256', 
-    HMI_TT_VAO_RA_C6_W: 'DB100,S3868.256', 
-    TT_VAO_RA_TT3_W: 'DB100,S4124.256'
+    TT_VAO_RA_TT2_W: 'DB100,DTL3612', 
+    HMI_TT_VAO_RA_C6_W: 'DB100,S3624.256', 
+    TT_VAO_RA_TT3_W: 'DB100,WORD3880'
     
     
 };
@@ -205,7 +205,7 @@ function PLC_connected(err) {
     }
     conn_plc.setTranslationCB(function(tag) {return tags_list[tag];});  // Đưa giá trị đọc lên từ PLC và mảng
     conn_plc.addItems([
-      'sql_insert_Trigger',       // Trigger ghi dữ liệu xuống SQL
+      'sql_insert_Trigger',       
       'B_W_ON_SYSTEM',      
       'B_W_OFF_SYSTEM',      
       'B_W_AUTO',    
@@ -369,19 +369,19 @@ function fn_read_data_scan(){
 }
 // Time cập nhật mỗi 1s
 setInterval(
+
     () => fn_read_data_scan(),
     1000 // 1s = 1000ms
 );
 
 // HÀM GHI DỮ LIỆU XUỐNG PLC
 function valuesWritten(anythingBad) {
-    if (anythingBad) { console.log("SOMETHING WENT WRONG WRITING VALUES!!!!"); }
+    if (anythingBad) { console.log("WRONG VALUES!"); }
     console.log("Done writing.");
 }
 
 // Nhận các bức điện được gửi từ trình duyệt
 io.on("connection", function(socket){
-    // Start
     socket.on("Client-send-start", function(data){conn_plc.writeItems('B_W_ON_SYSTEM', data, valuesWritten);});
     socket.on("Client-send-stop", function(data){conn_plc.writeItems('B_W_OFF_SYSTEM', data, valuesWritten);});
     socket.on("Client-send-pr", function(data){conn_plc.writeItems('B_PAUSE_RESUME_W', data, valuesWritten);});
@@ -1171,16 +1171,21 @@ function fn_excelExport(){
     };
     // =====================THẾT KẾ HEADER=====================
     // Logo công ty
-    const imageId1 = workbook.addImage({
-        filename: 'public/images/Logo.png',
-        extension: 'png',
-      });
-    worksheet.addImage(imageId1, 'A1:A3');
+    //const imageId1 = workbook.addImage({
+     //   filename: 'public/images/Logo.png',
+     //   extension: 'png',
+     // });
+    //worksheet.addImage(imageId1, 'A1:A3');-->
     // Thông tin công ty
-    worksheet.getCell('B1').value = 'Trường Đại Học Sư Phạm Kỹ Thuật TPHCM';
-    worksheet.getCell('B1').style = { font:{bold: true,size: 14},alignment: {vertical: 'middle'}} ;
-    worksheet.getCell('B2').value = 'Địa chỉ:  Số 1 Võ Văn Ngân, Quận Thủ Đức, TP HCM';
-    worksheet.getCell('B3').value = 'Hotline: + 0999 999 999';
+    worksheet.getCell('A1').value = 'Trường Đại Học Sư Phạm Kỹ Thuật TPHCM';
+    worksheet.mergeCells('A1:J1');
+    worksheet.getCell('A1').style = { font:{bold: true,size: 16},alignment: {horizontal:'center',vertical: 'middle'}} ;
+    worksheet.getCell('A2').value = 'Địa chỉ:  Số 1 Võ Văn Ngân, Quận Thủ Đức, TP HCM';
+    worksheet.mergeCells('A2:J2');
+    worksheet.getCell('A2').style = { alignment: {horizontal:'center',vertical: 'middle'}} ;
+    worksheet.getCell('A3').value = 'Hotline: + 0999 999 999';
+    worksheet.mergeCells('A3:J3');
+    worksheet.getCell('A3').style = { alignment: {horizontal:'center',vertical: 'middle'}} ;
     // Tên báo cáo
     worksheet.getCell('A5').value = 'BÁO CÁO';
     worksheet.mergeCells('A5:J5');
@@ -1274,15 +1279,10 @@ function fn_excelExport(){
     worksheet.getCell(`J${totalNumberOfRows+2}`).value = 'Ngày …………tháng ……………năm 20………';
     worksheet.getCell(`J${totalNumberOfRows+2}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'right',vertical: 'middle',wrapText: false}} ;
     
-    worksheet.getCell(`B${totalNumberOfRows+3}`).value = 'Giám đốc';
+    worksheet.getCell(`B${totalNumberOfRows+3}`).value = 'Người thực hiện';
     worksheet.getCell(`B${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
     worksheet.getCell(`B${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
     worksheet.getCell(`B${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
-    
-    worksheet.getCell(`F${totalNumberOfRows+3}`).value = 'Trưởng ca';
-    worksheet.getCell(`F${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
-    worksheet.getCell(`F${totalNumberOfRows+3}`).style = { font:{bold: true, italic: false},alignment: {horizontal:'center',vertical: 'bottom',wrapText: false}} ;
-    worksheet.getCell(`F${totalNumberOfRows+4}`).style = { font:{bold: false, italic: true},alignment: {horizontal:'center',vertical: 'top',wrapText: false}} ;
     
     worksheet.getCell(`J${totalNumberOfRows+3}`).value = 'Người in biểu';
     worksheet.getCell(`J${totalNumberOfRows+4}`).value = '(Ký, ghi rõ họ tên)';
