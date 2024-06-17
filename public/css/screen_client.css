@@ -396,4 +396,14 @@
   position: absolute;
   width: 225px; height: 30px;
   left: 185px; top: 280px;
+  text-align: right;
+}
+
+#lb_gia_c3{
+  position: absolute;
+  color: rgb(26, 24, 24);
+  font-size: 22px;
+  font-weight: normal;
+  left: 402px; top: 272px;
+  padding: 10px;
 }
