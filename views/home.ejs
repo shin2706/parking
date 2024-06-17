@@ -27,7 +27,7 @@
         <script src = "js/FC3_Excel_Export.js"></script>
         <script src = "js/plotly-2.8.3.min.js"></script>
         <script src = "js/FileSaver.js"></script>
-            <!-- ////////////// CHƯƠNG TRÌNH ĐĂNG NHẬP HỆ THỐNG //////////////   
+            <!-- ////////////// CHƯƠNG TRÌNH ĐĂNG NHẬP HỆ THỐNG //////////////  --> 
         <div id="div_login">
             <div id="id01" class="modal">
                 <form id = "modal-content1" class="modal-content animate">
@@ -45,7 +45,7 @@
 
                     <button id = "bttlogin1" type="button" onclick="login();">Login</button>
                     <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    <input type="checkbox" checked="checked" name="remember"> Remember me<br>   name:user/ pass:1
                     </label>
                 </div>
 
@@ -55,7 +55,7 @@
                 </div>
                 </form>
             </div>
-        </div>-->
+        </div>
    
     </head>
 
@@ -75,7 +75,6 @@
 
             <!--Nut chọn màn hình Control_Panel-->
             <button id="btt_Screen_Control_Panel" onclick="
-                fn_Alarm_Show();
                 fn_ScreenChange( 'Screen_Control_Panel', 'Screen_Client', 'Screen_HOME', 'Screen_Summary_Information','Screen_Status','Screen_Search');
             ">Control Panel</button>
 
@@ -186,7 +185,6 @@
                 <button class="btn btn-pause" id="pause" onclick= "socket.emit('Client-send-pr', true); fn_DataEdit('resume','pause');">Pause</button>
                 
                 <img id = "thanh_muc_start" ><script> fn_SymbolStatus("thanh_muc_start", "thanh_muc", "STT_SYSTEM_W") </script>
-                <img id = "thanh_muc_pause" ><script> fn_SymbolStatus("thanh_muc_pause", "thanh_muc", "BIT_P_R") </script>
             </div> 
 
             <div class="h2">
@@ -352,50 +350,8 @@
                 <img id = "light_24" ><script> fn_SymbolStatus("light_24", "Paper", "Q24_W") </script>
             </div>-->
 
-            <div class="h7">
-                <!--Table Cảnh báo Alarm-->
-                <div id = "div_table_Alarm">
-                    <table id="table_Alarm" >
-                        <thead>
-                        <tr>
-                            <th>Thời gian</th>
-                            <th>ID cảnh báo</th>
-                            <th>Trạng thái</th>
-                            <th>Nội dung cảnh báo</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+            
             <div class="h8">
-                <button class="btn btn-offp" id="offpower" onclick= "socket.emit('Client-send-power', false); fn_DataEdit('onpower','offpower');">OFF POWER</button>
-                <button class="btn btn-onp" id="onpower" onclick= "socket.emit('Client-send-power', true); fn_DataEdit('offpower','onpower');">ON POWER</button>
-
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_shome" class="btn btn-sethome" onmousedown="socket.emit('Client-send-shome',true);"  onmouseup="socket.emit('Client-send-shome',false);">SET HOME</button>
-                
-                <button id="HMI_JOG_1_Servo_Tlug-btn1_chuan" class="btn btn-chuan" onmousedown="socket.emit('Client-send-chuan',true);"  onmouseup="socket.emit('Client-send-chuan',false);">CONTROL</button>
-
-                <button class="btn btn-dlen" id="dlen" onclick= "socket.emit('Client-send-len', false); fn_DataEdit('len','dlen');">STOP UP</button>
-                <button class="btn btn-len" id="len" onclick= "socket.emit('Client-send-len', true); fn_DataEdit('dlen','len');">UP</button>
-
-                <button class="btn btn-dxuong" id="dxuong" onclick= "socket.emit('Client-send-xuong', false); fn_DataEdit('xuong','dxuong');">STOP DOWN</button>
-                <button class="btn btn-xuong" id="xuong" onclick= "socket.emit('Client-send-xuong', true); fn_DataEdit('dxuong','xuong');">DOWN</button>
-
-                <button class="btn btn-dquay" id="dquay" onclick= "socket.emit('Client-send-quay', false); fn_DataEdit('quay','dquay');">STOP SPIN</button>
-                <button class="btn btn-quay" id="quay" onclick= "socket.emit('Client-send-quay', true); fn_DataEdit('dquay','quay');">SPIN</button>
-
-                <button class="btn btn-dra" id="dra" onclick= "socket.emit('Client-send-ra', false); fn_DataEdit('ra','dra');">STOP OUT</button>
-                <button class="btn btn-ra" id="ra" onclick= "socket.emit('Client-send-ra', true); fn_DataEdit('dra','ra');">OUT</button>
-
-                <button class="btn btn-dvo" id="dvo" onclick= "socket.emit('Client-send-vo', false); fn_DataEdit('vo','dvo');">STOP IN</button>
-                <button class="btn btn-vo" id="vo" onclick= "socket.emit('Client-send-vo', true); fn_DataEdit('dvo','vo');">IN</button>
-
-                <button class="btn btn-luugoc" id="btt_S2_Save" onclick= "fn_S2_SaveBtt()">SAVE</button>  
-                <button class="btn btn-suagoc" id="btt_S2_Edit" onclick= "fn_S2_EditBtt()">EDIT</button>   
-
-                <label class="text1">ANGLE:</label>
-                <input id="gocquay" disabled="disabled" type="text"/>
-                <script>fn_S2_IOField_IO("GOC_QUAY_W", "gocquay", 2)</script>
 
                 <label class="text2">OCCUPIED:</label>
                 <input id="vtcx" disabled="disabled" type="text"/>
@@ -412,20 +368,56 @@
             </div>
 
             <div class="h9">
+                
+                <button class="btn btn-dlen" id="dlen" onclick= "socket.emit('Client-send-len', false); fn_DataEdit('len','dlen');">STOP UP</button>
+                <button class="btn btn-len" id="len" onclick= "socket.emit('Client-send-len', true); fn_DataEdit('dlen','len');">UP</button>
+
+                <button class="btn btn-dxuong" id="dxuong" onclick= "socket.emit('Client-send-xuong', false); fn_DataEdit('xuong','dxuong');">STOP DOWN</button>
+                <button class="btn btn-xuong" id="xuong" onclick= "socket.emit('Client-send-xuong', true); fn_DataEdit('dxuong','xuong');">DOWN</button>
+
+                <button class="btn btn-dquay" id="dquay" onclick= "socket.emit('Client-send-quay', false); fn_DataEdit('quay','dquay');">STOP SPIN</button>
+                <button class="btn btn-quay" id="quay" onclick= "socket.emit('Client-send-quay', true); fn_DataEdit('dquay','quay');">SPIN</button>
+
+                <button class="btn btn-dra" id="dra" onclick= "socket.emit('Client-send-ra', false); fn_DataEdit('ra','dra');">STOP OUT</button>
+                <button class="btn btn-ra" id="ra" onclick= "socket.emit('Client-send-ra', true); fn_DataEdit('dra','ra');">OUT</button>
+
+                <button class="btn btn-dvo" id="dvo" onclick= "socket.emit('Client-send-vo', false); fn_DataEdit('vo','dvo');">STOP IN</button>
+                <button class="btn btn-vo" id="vo" onclick= "socket.emit('Client-send-vo', true); fn_DataEdit('dvo','vo');">IN</button>
+
+            </div>
+            <div class="h10">
+                <button class="btn btn-offp" id="offpower" onclick= "socket.emit('Client-send-power', false); fn_DataEdit('onpower','offpower');">OFF POWER</button>
+                <button class="btn btn-onp" id="onpower" onclick= "socket.emit('Client-send-power', true); fn_DataEdit('offpower','onpower');">ON POWER</button>
+
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_shome" class="btn btn-sethome" onmousedown="socket.emit('Client-send-shome',true);"  onmouseup="socket.emit('Client-send-shome',false);">SET HOME</button>
+                
+                <button id="HMI_JOG_1_Servo_Tlug-btn1_chuan" class="btn btn-chuan" onmousedown="socket.emit('Client-send-chuan',true);"  onmouseup="socket.emit('Client-send-chuan',false);">CONTROL</button>
+            </div>
+
+            <div class="h11">
+                <button class="btn btn-luugoc" id="btt_S2_Save" onclick= "fn_S2_SaveBtt()">SAVE</button>  
+                <button class="btn btn-suagoc" id="btt_S2_Edit" onclick= "fn_S2_EditBtt()">EDIT</button>
+
+                <label class="text1">ANGLE:</label>
+                <input id="gocquay" disabled="disabled" type="text"/>
+                <script>fn_S2_IOField_IO("GOC_QUAY_W", "gocquay", 2)</script>
+            </div>
+            <!--
+            <div class="h9">
                 <p class="text">Đ/cơ vào:</p> <img id = "thanh_muc_dcvao" ><script> fn_SymbolStatus("thanh_muc_dcvao", "thanh_muc", "BIT_VO_W") </script>
                 <p class="text">Đ/cơ ra:</p> <img id = "thanh_muc_dcra" ><script> fn_SymbolStatus("thanh_muc_dcra", "thanh_muc", "BIT_RA_W") </script>
                 <p class="text">Đ/cơ lên:</p> <img id = "thanh_muc_dclen" ><script> fn_SymbolStatus("thanh_muc_dclen", "thanh_muc", "BIT_LEN_W") </script>
                 <p class="text">Đ/cơ xuống:</p> <img id = "thanh_muc_dcxuong" ><script> fn_SymbolStatus("thanh_muc_dcxuong", "thanh_muc", "BIT_XUONG_W") </script>
                 <p class="text">Đ/cơ quay:</p> <img id = "thanh_muc_dcquay" ><script> fn_SymbolStatus("thanh_muc_dcquay", "thanh_muc", "BIT_QUAY_W") </script>
                 <p class="text">CTHT 1:</p> <img id = "thanh_muc_ctht1" ><script> fn_SymbolStatus("thanh_muc_ctht1", "thanh_muc", "CTHT1_W") </script>
-            </div>
-
+            </div>-->
+<!--
             <div class="h10">
                     <p class="text">Cảm biến 1:</p> <img id = "thanh_muc_cb1" ><script> fn_SymbolStatus("thanh_muc_cb1", "thanh_muc", "CB1_W") </script>
                     <p class="text">Cảm biến 2:</p> <img id = "thanh_muc_cb2" ><script> fn_SymbolStatus("thanh_muc_cb2", "thanh_muc", "CB2_W") </script>
                     <p class="text">Cảm biến 3:</p> <img id = "thanh_muc_cb3" ><script> fn_SymbolStatus("thanh_muc_cb3", "thanh_muc", "CB3_W") </script>
                     <p class="text">Cảm biến 4:</p> <img id = "thanh_muc_cb4" ><script> fn_SymbolStatus("thanh_muc_cb4", "thanh_muc", "CB4_W") </script>
-                  <!--<p class="text">Cảm biến 5:</p> <img id = "thanh_muc_cb5" ><script> fn_SymbolStatus("thanh_muc_cb5", "thanh_muc", "CB5_W") </script>-->  
+                    <p class="text">Cảm biến 5:</p> <img id = "thanh_muc_cb5" ><script> fn_SymbolStatus("thanh_muc_cb5", "thanh_muc", "CB5_W") </script>  
                     <p class="text">CTHT 2:</p> <img id = "thanh_muc_ctht2" ><script> fn_SymbolStatus("thanh_muc_ctht2", "thanh_muc", "CTHT2_W") </script>
             </div>
 
@@ -449,7 +441,7 @@
                     <p class="text5">Thành tiền:</p>
                     <input id="tt" disabled="disabled" type="text"/>
                     <script>fn_IOFieldDataShow("THANH_TIEN_W", "tt", 0)</script>
-            </div>
+            </div>-->
         </div>
 
 

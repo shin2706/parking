@@ -1,31 +1,7 @@
-// triger ghi dữ liệu vào SQL
-var insert_trigger = false;			// Trigger
-var old_insert_trigger = false;		// Trigger old
+
 
 // Mảng xuất dữ liệu report Excel
 var SQL_Excel = [];  // Dữ liệu nhập kho
-
-// triger ghi dữ liệu cảnh báo vào SQL
-var Alarm_ID1 = false;			// Trigger Alarm add ID1
-var Alarm_ID2 = false;			// Trigger Alarm add ID2
-var Alarm_ID3 = false;			// Trigger Alarm add ID3
-var Alarm_ID4 = false;			// Trigger Alarm add ID1
-var Alarm_ID5 = false;			// Trigger Alarm add ID2
-var Alarm_ID6 = false;			// Trigger Alarm add ID3
-var Alarm_ID7 = false;			// Trigger Alarm add ID1
-var Alarm_ID8 = false;			// Trigger Alarm add ID2
-var Alarm_ID9 = false;			// Trigger Alarm add ID3
-
-
-var Alarm_ID1_old = false;		// Trigger alarm old ID1
-var Alarm_ID2_old = false;		// Trigger alarm old ID2
-var Alarm_ID3_old = false;		// Trigger alarm old ID3
-var Alarm_ID4_old = false;		// Trigger alarm old ID1
-var Alarm_ID5_old = false;		// Trigger alarm old ID2
-var Alarm_ID6_old = false;		// Trigger alarm old ID3
-var Alarm_ID7_old = false;		// Trigger alarm old ID1
-var Alarm_ID8_old = false;		// Trigger alarm old ID2
-var Alarm_ID9_old = false;		// Trigger alarm old ID3
 
 // /////////////////////////++THIẾT LẬP KẾT NỐI WEB++/////////////////////////
 var express = require("express");
@@ -50,150 +26,122 @@ conn_plc.initiateConnection({port: 102, host: '192.168.0.1', rack: 0, slot: 1}, 
 
 
 // Bảng tag trong Visual studio code
-var tags_list = {
-    sql_insert_Trigger: 'DB100,X0.0', 
-    B_W_ON_SYSTEM: 'DB100,X0.1',          
-    B_W_OFF_SYSTEM: 'DB100,X0.2',        
-    B_W_AUTO: 'DB100,X0.3',       
-    B_W_MANUAL: 'DB100,X0.4',
-    B_W_RA: 'DB100,X0.5',    
-    B_W_VAO: 'DB100,X0.6',    
-    B_W_LEN: 'DB100,X0.7',    
-    B_W_XUONG: 'DB100,X1.0',   
-    B_W_QUAY: 'DB100,X1.1',    
-    B1_W: 'DB100,X1.2',    
-    B2_W: 'DB100,X1.3', 
-    B3_W: 'DB100,X1.4', 
-    B4_W: 'DB100,X1.5',             
-    B5_W: 'DB100,X1.6', 
-    B6_W: 'DB100,X1.7', 
-    B7_W: 'DB100,X2.0', 
-    B8_W: 'DB100,X2.1', 
-    B9_W: 'DB100,X2.2', 
-    B10_W: 'DB100,X2.3', 
-    B11_W: 'DB100,X2.4', 
-    B12_W: 'DB100,X2.5', 
-    B13_W: 'DB100,X2.6', 
-    B14_W: 'DB100,X2.7', 
-    B15_W: 'DB100,X3.0', 
-    B16_W: 'DB100,X3.1', 
-    B17_W: 'DB100,X3.2', 
-    B18_W: 'DB100,X3.3', 
-    B19_W: 'DB100,X3.4', 
-    B20_W: 'DB100,X3.5', 
-    B21_W: 'DB100,X3.6', 
-    B22_W: 'DB100,X3.7', 
-    B23_W: 'DB100,X4.0', 
-    B24_W: 'DB100,X4.1', 
-    B_IN_W: 'DB100,X4.2', 
-    B_OUT_W: 'DB100,X4.3', 
-    B_HUY_W: 'DB100,X4.4', 
-    B_GUI_W: 'DB100,X4.5', 
-    B_LAY_W: 'DB100,X4.6', 
-    B_CHUAN_TANG_W: 'DB100,X4.7', 
-    B_SET_HOME_W: 'DB100,X5.0', 
-    B_PAUSE_RESUME_W: 'DB100,X5.1',
-    Q1_W: 'DB100,X5.2', 
-    Q2_W: 'DB100,X5.3', 
-    Q3_W: 'DB100,X5.4', 
-    Q4_W: 'DB100,X5.5', 
-    Q5_W: 'DB100,X5.6', 
-    Q6_W: 'DB100,X5.7', 
-    Q7_W: 'DB100,X6.0', 
-    Q8_W: 'DB100,X6.1', 
-    Q9_W: 'DB100,X6.2', 
-    Q10_W: 'DB100,X6.3', 
-    Q11_W: 'DB100,X6.4', 
-    Q12_W: 'DB100,X6.5', 
-    Q13_W: 'DB100,X6.6', 
-    Q14_W: 'DB100,X6.7', 
-    Q15_W: 'DB100,X7.0', 
-    Q16_W: 'DB100,X7.1', 
-    Q17_W: 'DB100,X7.2', 
-    Q18_W: 'DB100,X7.3',
-    Q19_W: 'DB100,X7.4',
-    Q20_W: 'DB100,X7.5',
-    Q21_W: 'DB100,X7.6',
-    Q22_W: 'DB100,X7.7',
-    Q23_W: 'DB100,X8.0',
-    Q24_W: 'DB100,X8.1',
-    Q_IN__W: 'DB100,X8.2',
-    Q_OUT_W: 'DB100,X8.3',
-    B_RESET_W: 'DB100,X8.4',
-    STT_SYSTEM_W: 'DB100,X8.5',
-    BIT_AUTO_W: 'DB100,X8.6',
-    BIT_MANUAL_W: 'DB100,X8.7',
-    BIT_RA_W: 'DB100,X9.0',
-    BIT_VO_W: 'DB100,X9.1',
-    BIT_LEN_W: 'DB100,X9.2',
-    BIT_XUONG_W: 'DB100,X9.3',
-    BIT_QUAY_W: 'DB100,X9.4',
-    BIT_GUI_W: 'DB100,X9.5',
-    BIT_LAY_W: 'DB100,X9.6',
-    BIT_P_R: 'DB100,X9.7',
-    CB1_W: 'DB100,X10.0',
-    CB2_W: 'DB100,X10.1',
-    CB3_W: 'DB100,X10.2',
-    CB4_W: 'DB100,X10.3',
-    B_RUN_W: 'DB100,X10.4',
-    CTHT1_W: 'DB100,X10.5',
-    CTHT2_W: 'DB100,X10.6',
-    GOC_QUAY_W: 'DB100,REAL12',
-    B_POWER_STEP_W: 'DB100,X16.0',
-    Alarm_M1: 'DB100,X16.1',           
-    Alarm_M2: 'DB100,X16.2',           
-    Alarm_M3: 'DB100,X16.3',
-    Alarm_M4: 'DB100,X16.4',          
-    Alarm_M5: 'DB100,X16.5',
-    Alarm_M6: 'DB100,X16.6',          
-    Alarm_M7: 'DB100,X16.7',
-    Alarm_M8: 'DB100,X17.0',         
-    Alarm_M9: 'DB100,X17.1',
-    B_TT_W_1: 'DB100,X17.2',
-    B_TT_W_2: 'DB100,X17.3',
-    B_TT_W_3: 'DB100,X17.4',
-    B_TT_W_4: 'DB100,X17.5',
-    B_TT_W_5: 'DB100,X17.6',
-    B_TT_W_6: 'DB100,X17.7',
-    B_TT_W_7: 'DB100,X18.0',
-    B_TT_W_8: 'DB100,X18.1',
-    B_TT_W_9: 'DB100,X18.2',
-    B_TT_W_10: 'DB100,X18.3',
-    B_TT_W_11: 'DB100,X18.4',
-    B_TT_W_12: 'DB100,X18.5',
-    B_TT_W_13: 'DB100,X18.6',
-    B_TT_W_14: 'DB100,X18.7',
-    B_TT_W_15: 'DB100,X19.0',
-    B_TT_W_16: 'DB100,X19.1',
-    B_TT_W_17: 'DB100,X19.2',
-    B_TT_W_18: 'DB100,X19.3',
-    B_TT_W_19: 'DB100,X19.4',
-    B_TT_W_20: 'DB100,X19.5',
-    B_TT_W_21: 'DB100,X19.6',
-    B_TT_W_22: 'DB100,X19.7',
-    B_TT_W_23: 'DB100,X20.0',
-    B_TT_W_24: 'DB100,X20.1',
-    SO_CO_XE_W: 'DB100,INT22',
-    SO_KO_XE_W: 'DB100,INT24', 
-    VT_CHECK_AUTO_W: 'DB100,S26.256', 
-    BIEN_SO_W: 'DB100,S282.256', 
-    MAU_XE_W: 'DB100,S538.256', 
-    T_G_VAO_W: 'DB100,S794.256', 
-    T_G_RA_W: 'DB100,S1050.256', 
-    THANH_TIEN_W: 'DB100,S1306.256',
-    VI_TRI_TT_XE_W: 'DB100,INT1562', 
-    THONGTIN_TRUY_TT0_W: 'DB100,S1564.256', 
-    THONGTIN_TRUY_TT1_W: 'DB100,S1820.256', 
-    THONGTIN_TRUY_TT2_W: 'DB100,S2076.256', 
-    THONGTIN_TRUY_TT3_W: 'DB100,S2332.256', 
-    HMI_TT_VAO_RA_TT_W: 'DB100,S2588.256', 
-    TT_VAO_RA_TT0_W: 'DB100,S2844.256', 
-    TT_VAO_RA_TT1_W: 'DB100,S3100.256', 
-    HMI_TT_VAO_RA_C4_W: 'DB100,S3356.256', 
-    TT_VAO_RA_TT2_W: 'DB100,DTL3612', 
-    HMI_TT_VAO_RA_C6_W: 'DB100,S3624.256', 
-    TT_VAO_RA_TT3_W: 'DB100,WORD3880'
-    
+var tags_list = { 
+    B_W_ON_SYSTEM: 'DB100,X0.0',          
+    B_W_OFF_SYSTEM: 'DB100,X0.1',        
+    B_W_AUTO: 'DB100,X0.2',       
+    B_W_MANUAL: 'DB100,X0.3',
+    B_W_RA: 'DB100,X0.4',    
+    B_W_VAO: 'DB100,X0.5',    
+    B_W_LEN: 'DB100,X0.6',    
+    B_W_XUONG: 'DB100,X0.7',   
+    B_W_QUAY: 'DB100,X1.0',    
+    B1_W: 'DB100,X1.1',    
+    B2_W: 'DB100,X1.2', 
+    B3_W: 'DB100,X1.3', 
+    B4_W: 'DB100,X1.4',             
+    B5_W: 'DB100,X1.5', 
+    B6_W: 'DB100,X1.6', 
+    B7_W: 'DB100,X1.7', 
+    B8_W: 'DB100,X2.0', 
+    B9_W: 'DB100,X2.1', 
+    B10_W: 'DB100,X2.2', 
+    B11_W: 'DB100,X2.3', 
+    B12_W: 'DB100,X2.4', 
+    B13_W: 'DB100,X2.5', 
+    B14_W: 'DB100,X2.6', 
+    B15_W: 'DB100,X2.7', 
+    B16_W: 'DB100,X3.0', 
+    B17_W: 'DB100,X3.1', 
+    B18_W: 'DB100,X3.2', 
+    B19_W: 'DB100,X3.3', 
+    B20_W: 'DB100,X3.4', 
+    B21_W: 'DB100,X3.5', 
+    B22_W: 'DB100,X3.6', 
+    B23_W: 'DB100,X3.7', 
+    B24_W: 'DB100,X4.0', 
+    B_IN_W: 'DB100,X4.1', 
+    B_OUT_W: 'DB100,X4.2', 
+    B_HUY_W: 'DB100,X4.3', 
+    B_GUI_W: 'DB100,X4.4', 
+    B_LAY_W: 'DB100,X4.5', 
+    B_CHUAN_TANG_W: 'DB100,X4.6', 
+    B_SET_HOME_W: 'DB100,X4.7', 
+    B_PAUSE_RESUME_W: 'DB100,X5.0',
+    Q1_W: 'DB100,X5.1', 
+    Q2_W: 'DB100,X5.2', 
+    Q3_W: 'DB100,X5.3', 
+    Q4_W: 'DB100,X5.4', 
+    Q5_W: 'DB100,X5.5', 
+    Q6_W: 'DB100,X5.6', 
+    Q7_W: 'DB100,X5.7', 
+    Q8_W: 'DB100,X6.0', 
+    Q9_W: 'DB100,X6.1', 
+    Q10_W: 'DB100,X6.2', 
+    Q11_W: 'DB100,X6.3', 
+    Q12_W: 'DB100,X6.4', 
+    Q13_W: 'DB100,X6.5', 
+    Q14_W: 'DB100,X6.6', 
+    Q15_W: 'DB100,X6.7', 
+    Q16_W: 'DB100,X7.0', 
+    Q17_W: 'DB100,X7.1', 
+    Q18_W: 'DB100,X7.2',
+    Q19_W: 'DB100,X7.3',
+    Q20_W: 'DB100,X7.4',
+    Q21_W: 'DB100,X7.5',
+    Q22_W: 'DB100,X7.6',
+    Q23_W: 'DB100,X7.7',
+    Q24_W: 'DB100,X8.0',
+    Q_IN__W: 'DB100,X8.1',
+    Q_OUT_W: 'DB100,X8.2',
+    B_RESET_W: 'DB100,X8.3',
+    STT_SYSTEM_W: 'DB100,X8.4',
+    BIT_AUTO_W: 'DB100,X8.5',
+    BIT_MANUAL_W: 'DB100,X8.6',
+    BIT_GUI_W: 'DB100,X8.7',
+    BIT_LAY_W: 'DB100,X9.0',
+    B_RUN_W: 'DB100,X9.1',
+    GOC_QUAY_W: 'DB100,REAL10',
+    B_POWER_STEP_W: 'DB100,X14.0',
+    B_TT_W_1: 'DB100,X14.1',
+    B_TT_W_2: 'DB100,X14.2',
+    B_TT_W_3: 'DB100,X14.3',
+    B_TT_W_4: 'DB100,X14.4',
+    B_TT_W_5: 'DB100,X14.5',
+    B_TT_W_6: 'DB100,X14.6',
+    B_TT_W_7: 'DB100,X14.7',
+    B_TT_W_8: 'DB100,X15.0',
+    B_TT_W_9: 'DB100,X15.1',
+    B_TT_W_10: 'DB100,X15.2',
+    B_TT_W_11: 'DB100,X15.3',
+    B_TT_W_12: 'DB100,X15.4',
+    B_TT_W_13: 'DB100,X15.5',
+    B_TT_W_14: 'DB100,X15.6',
+    B_TT_W_15: 'DB100,X15.7',
+    B_TT_W_16: 'DB100,X16.0',
+    B_TT_W_17: 'DB100,X16.1',
+    B_TT_W_18: 'DB100,X16.2',
+    B_TT_W_19: 'DB100,X16.3',
+    B_TT_W_20: 'DB100,X16.4',
+    B_TT_W_21: 'DB100,X16.5',
+    B_TT_W_22: 'DB100,X16.6',
+    B_TT_W_23: 'DB100,X16.7',
+    B_TT_W_24: 'DB100,X17.0',
+    SO_CO_XE_W: 'DB100,INT18',
+    SO_KO_XE_W: 'DB100,INT20', 
+    VT_CHECK_AUTO_W: 'DB100,S22.256',
+    VI_TRI_TT_XE_W: 'DB100,INT278', 
+    THONGTIN_TRUY_TT0_W: 'DB100,S280.256', 
+    THONGTIN_TRUY_TT1_W: 'DB100,S536.256', 
+    THONGTIN_TRUY_TT2_W: 'DB100,S792.256', 
+    THONGTIN_TRUY_TT3_W: 'DB100,S1048.256', 
+    HMI_TT_VAO_RA_TT_W: 'DB100,S1304.256', 
+    TT_VAO_RA_TT0_W: 'DB100,S1560.256', 
+    TT_VAO_RA_TT1_W: 'DB100,S1816.256', 
+    HMI_TT_VAO_RA_C4_W: 'DB100,S2072.256', 
+    TT_VAO_RA_TT2_W: 'DB100,DTL2328', 
+    HMI_TT_VAO_RA_C6_W: 'DB100,S2340.256', 
+    TT_VAO_RA_TT3_W: 'DB100,WORD2596',
     
 };
 
@@ -204,8 +152,7 @@ function PLC_connected(err) {
         console.log(err); // Hiển thị lỗi nếu không kết nối đƯỢc với PLC
     }
     conn_plc.setTranslationCB(function(tag) {return tags_list[tag];});  // Đưa giá trị đọc lên từ PLC và mảng
-    conn_plc.addItems([
-      'sql_insert_Trigger',       
+    conn_plc.addItems([      
       'B_W_ON_SYSTEM',      
       'B_W_OFF_SYSTEM',      
       'B_W_AUTO',    
@@ -248,7 +195,7 @@ function PLC_connected(err) {
       'B_SET_HOME_W', 
       'B_PAUSE_RESUME_W',
       'Q1_W',
-      'Q2_W',      // Dữ liệu dạng ký tự
+      'Q2_W',      
       'Q3_W',
       'Q4_W',
       'Q5_W',
@@ -277,32 +224,11 @@ function PLC_connected(err) {
       'STT_SYSTEM_W',
       'BIT_AUTO_W',
       'BIT_MANUAL_W',
-      'BIT_RA_W',
-      'BIT_VO_W',
-      'BIT_LEN_W',
-      'BIT_XUONG_W',
-      'BIT_QUAY_W',
       'BIT_GUI_W',
       'BIT_LAY_W',
-      'BIT_P_R',
-      'CB1_W',
-      'CB2_W',
-      'CB3_W',
-      'CB4_W',
       'B_RUN_W',
-      'CTHT1_W',
-      'CTHT2_W',
       'GOC_QUAY_W',
       'B_POWER_STEP_W',
-      'Alarm_M1',       // Trigger ghi dữ liệu xuống SQL
-      'Alarm_M2',       // Dữ liệu dạng bool
-      'Alarm_M3', 
-      'Alarm_M4',       // Trigger ghi dữ liệu xuống SQL
-      'Alarm_M5', 
-      'Alarm_M6',       // Trigger ghi dữ liệu xuống SQL
-      'Alarm_M7', 
-      'Alarm_M8',       // Trigger ghi dữ liệu xuống SQL
-      'Alarm_M9',
       'B_TT_W_1',
       'B_TT_W_2',
       'B_TT_W_3',
@@ -330,11 +256,6 @@ function PLC_connected(err) {
       'SO_CO_XE_W',
       'SO_KO_XE_W',
       'VT_CHECK_AUTO_W',
-      'BIEN_SO_W',
-      'MAU_XE_W',
-      'T_G_VAO_W',
-      'T_G_RA_W',
-      'THANH_TIEN_W',
       'VI_TRI_TT_XE_W',
       'THONGTIN_TRUY_TT0_W',
       'THONGTIN_TRUY_TT1_W',
@@ -347,7 +268,6 @@ function PLC_connected(err) {
       'TT_VAO_RA_TT2_W',
       'HMI_TT_VAO_RA_C6_W',
       'TT_VAO_RA_TT3_W'
-      
     ]);
 }
 
@@ -364,8 +284,7 @@ function valuesReady(anythingBad, values) {
 // Hàm chức năng scan giá trị
 function fn_read_data_scan(){
     conn_plc.readAllItems(valuesReady);
-    fn_sql_insert();
-    fn_Alarm_Manage();
+    
 }
 // Time cập nhật mỗi 1s
 setInterval(
@@ -455,148 +374,121 @@ io.on("connection", function(socket){
 
 // ///////////LẬP BẢNG TAG ĐỂ GỬI QUA CLIENT (TRÌNH DUYỆT)///////////
 function fn_tag(){
-    io.sockets.emit("sql_insert_Trigger", arr_tag_value[0]);
-    io.sockets.emit("B_W_ON_SYSTEM", arr_tag_value[1]);
-    io.sockets.emit("B_W_OFF_SYSTEM", arr_tag_value[2]);
-    io.sockets.emit("B_W_AUTO", arr_tag_value[3]);
-    io.sockets.emit("B_W_MANUAL", arr_tag_value[4]);
-    io.sockets.emit("B_W_RA", arr_tag_value[5]);
-    io.sockets.emit("B_W_VAO", arr_tag_value[6]);
-    io.sockets.emit("B_W_LEN", arr_tag_value[7]);
-    io.sockets.emit("B_W_XUONG", arr_tag_value[8]);
-    io.sockets.emit("B_W_QUAY", arr_tag_value[9]);
-    io.sockets.emit("B1_W", arr_tag_value[10]);
-    io.sockets.emit("B2_W", arr_tag_value[11]);
-    io.sockets.emit("B3_W", arr_tag_value[12]);
-    io.sockets.emit("B4_W", arr_tag_value[13]);
-    io.sockets.emit("B5_W", arr_tag_value[14]);
-    io.sockets.emit("B6_W", arr_tag_value[15]);
-    io.sockets.emit("B7_W", arr_tag_value[16]);
-    io.sockets.emit("B8_W", arr_tag_value[17]);
-    io.sockets.emit("B9_W", arr_tag_value[18]);
-    io.sockets.emit("B10_W", arr_tag_value[19]);
-    io.sockets.emit("B11_W", arr_tag_value[20]);
-    io.sockets.emit("B12_W", arr_tag_value[21]);
-    io.sockets.emit("B13_W", arr_tag_value[22]);
-    io.sockets.emit("B14_W", arr_tag_value[23]);
-    io.sockets.emit("B15_W", arr_tag_value[24]);
-    io.sockets.emit("B16_W", arr_tag_value[25]);
-    io.sockets.emit("B17_W", arr_tag_value[26]);
-    io.sockets.emit("B18_W", arr_tag_value[27]);
-    io.sockets.emit("B19_W", arr_tag_value[28]);
-    io.sockets.emit("B20_W", arr_tag_value[29]);
-    io.sockets.emit("B21_W", arr_tag_value[30]);
-    io.sockets.emit("B22_W", arr_tag_value[31]);
-    io.sockets.emit("B23_W", arr_tag_value[32]);
-    io.sockets.emit("B24_W", arr_tag_value[33]);
-    io.sockets.emit("B_IN_W", arr_tag_value[34]);
-    io.sockets.emit("B_OUT_W", arr_tag_value[35]);
-    io.sockets.emit("B_HUY_W", arr_tag_value[36]);
-    io.sockets.emit("B_GUI_W", arr_tag_value[37]);
-    io.sockets.emit("B_LAY_W", arr_tag_value[38]);
-    io.sockets.emit("B_CHUAN_TANG_W", arr_tag_value[39]);
-    io.sockets.emit("B_SET_HOME_W", arr_tag_value[40]);
-    io.sockets.emit("B_PAUSE_RESUME_W", arr_tag_value[41]);
-    io.sockets.emit("Q1_W", arr_tag_value[42]);
-    io.sockets.emit("Q2_W", arr_tag_value[43]);
-    io.sockets.emit("Q3_W", arr_tag_value[44]);
-    io.sockets.emit("Q4_W", arr_tag_value[45]);
-    io.sockets.emit("Q5_W", arr_tag_value[46]);
-    io.sockets.emit("Q6_W", arr_tag_value[47]);
-    io.sockets.emit("Q7_W", arr_tag_value[48]);
-    io.sockets.emit("Q8_W", arr_tag_value[49]);
-    io.sockets.emit("Q9_W", arr_tag_value[50]);
-    io.sockets.emit("Q10_W", arr_tag_value[51]);
-    io.sockets.emit("Q11_W", arr_tag_value[52]);
-    io.sockets.emit("Q12_W", arr_tag_value[53]);
-    io.sockets.emit("Q13_W", arr_tag_value[54]);
-    io.sockets.emit("Q14_W", arr_tag_value[55]);
-    io.sockets.emit("Q15_W", arr_tag_value[56]);
-    io.sockets.emit("Q16_W", arr_tag_value[57]);
-    io.sockets.emit("Q17_W", arr_tag_value[58]);
-    io.sockets.emit("Q18_W", arr_tag_value[59]);
-    io.sockets.emit("Q19_W", arr_tag_value[60]);
-    io.sockets.emit("Q20_W", arr_tag_value[61]);
-    io.sockets.emit("Q21_W", arr_tag_value[62]);
-    io.sockets.emit("Q22_W", arr_tag_value[63]);
-    io.sockets.emit("Q23_W", arr_tag_value[64]);
-    io.sockets.emit("Q24_W", arr_tag_value[65]);
-    io.sockets.emit("Q_IN__W", arr_tag_value[66]);
-    io.sockets.emit("Q_OUT_W", arr_tag_value[67]);
-    io.sockets.emit("B_RESET_W", arr_tag_value[68]);
-    io.sockets.emit("STT_SYSTEM_W", arr_tag_value[69]);
-    io.sockets.emit("BIT_AUTO_W", arr_tag_value[70]);
-    io.sockets.emit("BIT_MANUAL_W", arr_tag_value[71]);
-    io.sockets.emit("BIT_RA_W", arr_tag_value[72]);
-    io.sockets.emit("BIT_VO_W", arr_tag_value[73]);
-    io.sockets.emit("BIT_LEN_W", arr_tag_value[74]);
-    io.sockets.emit("BIT_XUONG_W", arr_tag_value[75]);
-    io.sockets.emit("BIT_QUAY_W", arr_tag_value[76]);
-    io.sockets.emit("BIT_GUI_W", arr_tag_value[77]);
-    io.sockets.emit("BIT_LAY_W", arr_tag_value[78]);
-    io.sockets.emit("BIT_P_R", arr_tag_value[79]);
-    io.sockets.emit("CB1_W", arr_tag_value[80]);
-    io.sockets.emit("CB2_W", arr_tag_value[81]);
-    io.sockets.emit("CB3_W", arr_tag_value[82]);
-    io.sockets.emit("CB4_W", arr_tag_value[83]);
-    io.sockets.emit("B_RUN_W", arr_tag_value[84]);
-    io.sockets.emit("CTHT1_W", arr_tag_value[85]);
-    io.sockets.emit("CTHT2_W", arr_tag_value[86]);
-    io.sockets.emit("GOC_QUAY_W", arr_tag_value[87]);
-    io.sockets.emit("B_POWER_STEP_W", arr_tag_value[88]);
-    io.sockets.emit("Alarm_M1", arr_tag_value[89]);
-    io.sockets.emit("Alarm_M2", arr_tag_value[90]);
-    io.sockets.emit("Alarm_M3", arr_tag_value[91]);
-    io.sockets.emit("Alarm_M4", arr_tag_value[92]);
-    io.sockets.emit("Alarm_M5", arr_tag_value[93]);
-    io.sockets.emit("Alarm_M6", arr_tag_value[94]);
-    io.sockets.emit("Alarm_M7", arr_tag_value[95]);
-    io.sockets.emit("Alarm_M8", arr_tag_value[96]);
-    io.sockets.emit("Alarm_M9", arr_tag_value[97]);
-    io.sockets.emit("B_TT_W_1", arr_tag_value[98]);
-    io.sockets.emit("B_TT_W_2", arr_tag_value[99]);
-    io.sockets.emit("B_TT_W_3", arr_tag_value[100]);
-    io.sockets.emit("B_TT_W_4", arr_tag_value[101]);
-    io.sockets.emit("B_TT_W_5", arr_tag_value[102]);
-    io.sockets.emit("B_TT_W_6", arr_tag_value[103]);
-    io.sockets.emit("B_TT_W_7", arr_tag_value[104]);
-    io.sockets.emit("B_TT_W_8", arr_tag_value[105]);
-    io.sockets.emit("B_TT_W_9", arr_tag_value[106]);
-    io.sockets.emit("B_TT_W_10", arr_tag_value[107]);
-    io.sockets.emit("B_TT_W_11", arr_tag_value[108]);
-    io.sockets.emit("B_TT_W_12", arr_tag_value[109]);
-    io.sockets.emit("B_TT_W_13", arr_tag_value[110]);
-    io.sockets.emit("B_TT_W_14", arr_tag_value[111]);
-    io.sockets.emit("B_TT_W_15", arr_tag_value[112]);
-    io.sockets.emit("B_TT_W_16", arr_tag_value[113]);
-    io.sockets.emit("B_TT_W_17", arr_tag_value[114]);
-    io.sockets.emit("B_TT_W_18", arr_tag_value[115]);
-    io.sockets.emit("B_TT_W_19", arr_tag_value[116]);
-    io.sockets.emit("B_TT_W_20", arr_tag_value[117]);
-    io.sockets.emit("B_TT_W_21", arr_tag_value[118]);
-    io.sockets.emit("B_TT_W_22", arr_tag_value[119]);
-    io.sockets.emit("B_TT_W_23", arr_tag_value[120]);
-    io.sockets.emit("B_TT_W_24", arr_tag_value[121]);
-    io.sockets.emit("SO_CO_XE_W", arr_tag_value[122]);
-    io.sockets.emit("SO_KO_XE_W", arr_tag_value[123]);
-    io.sockets.emit("VT_CHECK_AUTO_W", arr_tag_value[124]);
-    io.sockets.emit("BIEN_SO_W", arr_tag_value[125]);
-    io.sockets.emit("MAU_XE_W", arr_tag_value[126]);
-    io.sockets.emit("T_G_VAO_W", arr_tag_value[127]);
-    io.sockets.emit("T_G_RA_W", arr_tag_value[128]);
-    io.sockets.emit("THANH_TIEN_W", arr_tag_value[129]);
-    io.sockets.emit("VI_TRI_TT_XE_W", arr_tag_value[130]);
-    io.sockets.emit("THONGTIN_TRUY_TT0_W", arr_tag_value[131]);
-    io.sockets.emit("THONGTIN_TRUY_TT1_W", arr_tag_value[132]);
-    io.sockets.emit("THONGTIN_TRUY_TT2_W", arr_tag_value[133]);
-    io.sockets.emit("THONGTIN_TRUY_TT3_W", arr_tag_value[134]);
-    io.sockets.emit("HMI_TT_VAO_RA_TT_W", arr_tag_value[135]);
-    io.sockets.emit("TT_VAO_RA_TT0_W", arr_tag_value[136]);
-    io.sockets.emit("TT_VAO_RA_TT1_W", arr_tag_value[137]);
-    io.sockets.emit("HMI_TT_VAO_RA_C4_W", arr_tag_value[138]);
-    io.sockets.emit("TT_VAO_RA_TT2_W", arr_tag_value[139]);
-    io.sockets.emit("HMI_TT_VAO_RA_C6_W", arr_tag_value[140]);
-    io.sockets.emit("TT_VAO_RA_TT3_W", arr_tag_value[141]);
+    io.sockets.emit("B_W_ON_SYSTEM", arr_tag_value[0]);
+    io.sockets.emit("B_W_OFF_SYSTEM", arr_tag_value[1]);
+    io.sockets.emit("B_W_AUTO", arr_tag_value[2]);
+    io.sockets.emit("B_W_MANUAL", arr_tag_value[3]);
+    io.sockets.emit("B_W_RA", arr_tag_value[4]);
+    io.sockets.emit("B_W_VAO", arr_tag_value[5]);
+    io.sockets.emit("B_W_LEN", arr_tag_value[6]);
+    io.sockets.emit("B_W_XUONG", arr_tag_value[7]);
+    io.sockets.emit("B_W_QUAY", arr_tag_value[8]);
+    io.sockets.emit("B1_W", arr_tag_value[9]);
+    io.sockets.emit("B2_W", arr_tag_value[10]);
+    io.sockets.emit("B3_W", arr_tag_value[11]);
+    io.sockets.emit("B4_W", arr_tag_value[12]);
+    io.sockets.emit("B5_W", arr_tag_value[13]);
+    io.sockets.emit("B6_W", arr_tag_value[14]);
+    io.sockets.emit("B7_W", arr_tag_value[15]);
+    io.sockets.emit("B8_W", arr_tag_value[16]);
+    io.sockets.emit("B9_W", arr_tag_value[17]);
+    io.sockets.emit("B10_W", arr_tag_value[18]);
+    io.sockets.emit("B11_W", arr_tag_value[19]);
+    io.sockets.emit("B12_W", arr_tag_value[20]);
+    io.sockets.emit("B13_W", arr_tag_value[21]);
+    io.sockets.emit("B14_W", arr_tag_value[22]);
+    io.sockets.emit("B15_W", arr_tag_value[23]);
+    io.sockets.emit("B16_W", arr_tag_value[24]);
+    io.sockets.emit("B17_W", arr_tag_value[25]);
+    io.sockets.emit("B18_W", arr_tag_value[26]);
+    io.sockets.emit("B19_W", arr_tag_value[27]);
+    io.sockets.emit("B20_W", arr_tag_value[28]);
+    io.sockets.emit("B21_W", arr_tag_value[29]);
+    io.sockets.emit("B22_W", arr_tag_value[30]);
+    io.sockets.emit("B23_W", arr_tag_value[31]);
+    io.sockets.emit("B24_W", arr_tag_value[32]);
+    io.sockets.emit("B_IN_W", arr_tag_value[33]);
+    io.sockets.emit("B_OUT_W", arr_tag_value[34]);
+    io.sockets.emit("B_HUY_W", arr_tag_value[35]);
+    io.sockets.emit("B_GUI_W", arr_tag_value[36]);
+    io.sockets.emit("B_LAY_W", arr_tag_value[37]);
+    io.sockets.emit("B_CHUAN_TANG_W", arr_tag_value[38]);
+    io.sockets.emit("B_SET_HOME_W", arr_tag_value[39]);
+    io.sockets.emit("B_PAUSE_RESUME_W", arr_tag_value[40]);
+    io.sockets.emit("Q1_W", arr_tag_value[41]);
+    io.sockets.emit("Q2_W", arr_tag_value[42]);
+    io.sockets.emit("Q3_W", arr_tag_value[43]);
+    io.sockets.emit("Q4_W", arr_tag_value[44]);
+    io.sockets.emit("Q5_W", arr_tag_value[45]);
+    io.sockets.emit("Q6_W", arr_tag_value[46]);
+    io.sockets.emit("Q7_W", arr_tag_value[47]);
+    io.sockets.emit("Q8_W", arr_tag_value[48]);
+    io.sockets.emit("Q9_W", arr_tag_value[49]);
+    io.sockets.emit("Q10_W", arr_tag_value[50]);
+    io.sockets.emit("Q11_W", arr_tag_value[51]);
+    io.sockets.emit("Q12_W", arr_tag_value[52]);
+    io.sockets.emit("Q13_W", arr_tag_value[53]);
+    io.sockets.emit("Q14_W", arr_tag_value[54]);
+    io.sockets.emit("Q15_W", arr_tag_value[55]);
+    io.sockets.emit("Q16_W", arr_tag_value[56]);
+    io.sockets.emit("Q17_W", arr_tag_value[57]);
+    io.sockets.emit("Q18_W", arr_tag_value[58]);
+    io.sockets.emit("Q19_W", arr_tag_value[59]);
+    io.sockets.emit("Q20_W", arr_tag_value[60]);
+    io.sockets.emit("Q21_W", arr_tag_value[61]);
+    io.sockets.emit("Q22_W", arr_tag_value[62]);
+    io.sockets.emit("Q23_W", arr_tag_value[63]);
+    io.sockets.emit("Q24_W", arr_tag_value[64]);
+    io.sockets.emit("Q_IN__W", arr_tag_value[65]);
+    io.sockets.emit("Q_OUT_W", arr_tag_value[66]);
+    io.sockets.emit("B_RESET_W", arr_tag_value[67]);
+    io.sockets.emit("STT_SYSTEM_W", arr_tag_value[68]);
+    io.sockets.emit("BIT_AUTO_W", arr_tag_value[69]);
+    io.sockets.emit("BIT_MANUAL_W", arr_tag_value[70]);
+    io.sockets.emit("BIT_GUI_W", arr_tag_value[71]);
+    io.sockets.emit("BIT_LAY_W", arr_tag_value[72]);
+    io.sockets.emit("B_RUN_W", arr_tag_value[73]);
+    io.sockets.emit("GOC_QUAY_W", arr_tag_value[74]);
+    io.sockets.emit("B_POWER_STEP_W", arr_tag_value[75]);
+    io.sockets.emit("B_TT_W_1", arr_tag_value[76]);
+    io.sockets.emit("B_TT_W_2", arr_tag_value[77]);
+    io.sockets.emit("B_TT_W_3", arr_tag_value[78]);
+    io.sockets.emit("B_TT_W_4", arr_tag_value[79]);
+    io.sockets.emit("B_TT_W_5", arr_tag_value[80]);
+    io.sockets.emit("B_TT_W_6", arr_tag_value[81]);
+    io.sockets.emit("B_TT_W_7", arr_tag_value[82]);
+    io.sockets.emit("B_TT_W_8", arr_tag_value[83]);
+    io.sockets.emit("B_TT_W_9", arr_tag_value[84]);
+    io.sockets.emit("B_TT_W_10", arr_tag_value[85]);
+    io.sockets.emit("B_TT_W_11", arr_tag_value[86]);
+    io.sockets.emit("B_TT_W_12", arr_tag_value[87]);
+    io.sockets.emit("B_TT_W_13", arr_tag_value[88]);
+    io.sockets.emit("B_TT_W_14", arr_tag_value[89]);
+    io.sockets.emit("B_TT_W_15", arr_tag_value[90]);
+    io.sockets.emit("B_TT_W_16", arr_tag_value[91]);
+    io.sockets.emit("B_TT_W_17", arr_tag_value[92]);
+    io.sockets.emit("B_TT_W_18", arr_tag_value[93]);
+    io.sockets.emit("B_TT_W_19", arr_tag_value[94]);
+    io.sockets.emit("B_TT_W_20", arr_tag_value[95]);
+    io.sockets.emit("B_TT_W_21", arr_tag_value[96]);
+    io.sockets.emit("B_TT_W_22", arr_tag_value[97]);
+    io.sockets.emit("B_TT_W_23", arr_tag_value[98]);
+    io.sockets.emit("B_TT_W_24", arr_tag_value[99]);
+    io.sockets.emit("SO_CO_XE_W", arr_tag_value[100]);
+    io.sockets.emit("SO_KO_XE_W", arr_tag_value[101]);
+    io.sockets.emit("VT_CHECK_AUTO_W", arr_tag_value[102]);
+    io.sockets.emit("VI_TRI_TT_XE_W", arr_tag_value[103]);
+    io.sockets.emit("THONGTIN_TRUY_TT0_W", arr_tag_value[104]);
+    io.sockets.emit("THONGTIN_TRUY_TT1_W", arr_tag_value[105]);
+    io.sockets.emit("THONGTIN_TRUY_TT2_W", arr_tag_value[106]);
+    io.sockets.emit("THONGTIN_TRUY_TT3_W", arr_tag_value[107]);
+    io.sockets.emit("HMI_TT_VAO_RA_TT_W", arr_tag_value[108]);
+    io.sockets.emit("TT_VAO_RA_TT0_W", arr_tag_value[109]);
+    io.sockets.emit("TT_VAO_RA_TT1_W", arr_tag_value[110]);
+    io.sockets.emit("HMI_TT_VAO_RA_C4_W", arr_tag_value[111]);
+    io.sockets.emit("TT_VAO_RA_TT2_W", arr_tag_value[112]);
+    io.sockets.emit("HMI_TT_VAO_RA_C6_W", arr_tag_value[113]);
+    io.sockets.emit("TT_VAO_RA_TT3_W", arr_tag_value[114]);
 }
 // ///////////GỬI DỮ LIỆU BẢNG TAG ĐẾN CLIENT (TRÌNH DUYỆT)///////////
 io.on("connection", function(socket){
@@ -605,7 +497,6 @@ io.on("connection", function(socket){
     });
     fn_SQLSearch(); // Hàm tìm kiếm SQL
     fn_SQLSearch_ByTime();
-    fn_Alarm_Show();
     fn_SQLSearch_ByTime_In();
     fn_SQLSearch_ByTime_Out();
     fn_SQLSearch_ByNum_Car();
@@ -627,44 +518,6 @@ var sqlcon = mysql.createConnection({
   dateStrings:true // Hiển thị không có T và Z
 });
 
-function fn_sql_insert(){
-    insert_trigger = arr_tag_value[0];		// Read trigger from PLC
-    var sqltable_Name = "parking_auto";
-    // Lấy thời gian hiện tại
-	var tzoffset = (new Date()).getTimezoneOffset() * 60000; //Vùng Việt Nam (GMT7+)
-	var temp_datenow = new Date();
-	var timeNow = (new Date(temp_datenow - tzoffset)).toISOString().slice(0, -1).replace("T"," ");
-	var timeNow_toSQL = "'" + timeNow + "',";
-
-    // Dữ liệu đọc lên từ các tag
-    var data_Bool = "'" + arr_tag_value[1] + "',";
-    var data_Byte = "'" + arr_tag_value[2] + "',";
-    var data_Integer = "'" + arr_tag_value[3] + "',";
-    var data_Real = "'" + arr_tag_value[4] + "',";
-    var data_String = "'" + arr_tag_value[5] + "'";
-    // Ghi dữ liệu vào SQL
-    if (insert_trigger && !old_insert_trigger)
-    {
-        var sql_write_str11 = "INSERT INTO sql_plc." + sqltable_Name + " (date_time, data_Bool, data_Byte, data_Integer, data_real, data_String) VALUES (";
-        var sql_write_str12 = timeNow_toSQL
-                            + data_Bool
-                            + data_Byte
-                            + data_Integer
-                            + data_Real
-                            + data_String
-                            ;
-        var sql_write_str1 = sql_write_str11 + sql_write_str12 + ");";
-        // Thực hiện ghi dữ liệu vào SQL
-		sqlcon.query(sql_write_str1, function (err, result) {
-            if (err) {
-                console.log(err);
-             } else {
-                console.log("SQL - Ghi dữ liệu thành công");
-              }
-			});
-    }
-    old_insert_trigger = insert_trigger;
-}
 
 // Đọc dữ liệu từ SQL
 function fn_SQLSearch(){
@@ -955,182 +808,6 @@ io.on("connection", function(socket)
                         ], valuesWritten);  
         });
 });
-
-function fn_sql_alarm_insert(ID, AlarmName){
-    var sqltable_Name = "alarm";
-    // Lấy thời gian hiện tại
-	var tzoffset = (new Date()).getTimezoneOffset() * 60000; // Vùng Việt Nam (GMT7+)
-	var temp_datenow = new Date();
-	var timeNow = (new Date(temp_datenow - tzoffset)).toISOString().slice(0, -1).replace("T"," ");
-	var timeNow_toSQL = "'" + timeNow + "',";
-
-    // Dữ liệu trạng thái báo cáo
-    var data_1 = "'" + ID + "',";
-    var data_2 = "'I',";
-    var data_3 = "'" + AlarmName + "'";
-    // Thêm cảnh báo vào SQL
-    var str1 = "INSERT INTO " + sqltable_Name + " (Date_time, ID, Status, AlarmName) VALUES (";
-    var str2 = timeNow_toSQL
-                + data_1
-                + data_2
-                + data_3
-                ;
-    var str = str1 + str2 + ");";
-    // Ghi dữ liệu cảnh báo vào SQL
-	sqlcon.query(str, function (err, result) {
-        if (err) {console.log(err);} else {}
-    });
-    fn_Alarm_Show();
-}
-
-// Hàm tự động xác nhận cảnh báo
-function fn_sql_alarm_ack(ID){
-    var sqltable_Name = "alarm";
-
-    // Dữ liệu trạng thái cảnh báo
-    var data_1 = " Status = 'IO'";
-
-    var str1 = "UPDATE " + sqltable_Name + " SET";
-    var str2 = " WHERE ID='" + ID + "'";
-
-    var str = str1 + data_1 + str2 + ";";
-    // Ghi dữ liệu cảnh báo vào SQL
-	sqlcon.query(str, function (err, result) {
-        if (err) {console.log(err);} else {}
-    });
-    fn_Alarm_Show();
-}
-
-var count=0;
-
-// Hàm chức năng insert Alarm
-function fn_Alarm_Manage(){
-    Alarm_ID1 = arr_tag_value[89];		
-    Alarm_ID2 = arr_tag_value[90];		
-    Alarm_ID3 = arr_tag_value[91];
-    Alarm_ID4 = arr_tag_value[92];		
-    Alarm_ID5 = arr_tag_value[93];		
-    Alarm_ID6 = arr_tag_value[94];
-    Alarm_ID7 = arr_tag_value[95];		
-    Alarm_ID8 = arr_tag_value[96];		
-    Alarm_ID9 = arr_tag_value[97];
-
-    count++;
-    if(count<20){
-        Alarm_ID1_old = Alarm_ID1;		// Trigger alarm old ID1
-        Alarm_ID2_old = Alarm_ID2;		// Trigger alarm old ID2
-        Alarm_ID3_old = Alarm_ID3;		// Trigger alarm old ID3
-        Alarm_ID4_old = Alarm_ID4;		// Trigger alarm old ID1
-        Alarm_ID5_old = Alarm_ID5;		// Trigger alarm old ID2
-        Alarm_ID6_old = Alarm_ID6;		// Trigger alarm old ID3
-        Alarm_ID7_old = Alarm_ID7;		// Trigger alarm old ID1
-        Alarm_ID8_old = Alarm_ID8;		// Trigger alarm old ID2
-        Alarm_ID9_old = Alarm_ID9;
-        return;
-    }
-    
-    if (Alarm_ID1 && !Alarm_ID1_old){
-        if(Alarm_ID1!=Alarm_ID1_old & Alarm_ID1==true ){
-        fn_sql_alarm_insert(1, "ĐẠT GIỚI HẠN NGOÀI");}
-        fn_Alarm_Show();
-    } if(Alarm_ID1 == false & Alarm_ID1 != Alarm_ID1_old) {
-        fn_sql_alarm_ack(1);
-    }
-    Alarm_ID1_old = Alarm_ID1;
-    
-    if (Alarm_ID2 && !Alarm_ID2_old){
-        if(Alarm_ID2!=Alarm_ID2_old & Alarm_ID2==true ){
-        fn_sql_alarm_insert(2, "ĐAT GIỚI HẠN TRONG");}
-        fn_Alarm_Show();
-    } if(Alarm_ID2 == false & Alarm_ID2 != Alarm_ID2_old) {
-        fn_sql_alarm_ack(2);
-    }
-    Alarm_ID2_old = Alarm_ID2;
-    
-    if (Alarm_ID3 && !Alarm_ID3_old){
-        if(Alarm_ID3!=Alarm_ID3_old & Alarm_ID3==true ){
-        fn_sql_alarm_insert(3, "ĐẠT GIỚI HẠN TRÊN");}
-        fn_Alarm_Show();
-    } if(Alarm_ID3 == false & Alarm_ID3 != Alarm_ID3_old) {
-        fn_sql_alarm_ack(3);
-    }
-    Alarm_ID3_old = Alarm_ID3;
-
-    if (Alarm_ID4 && !Alarm_ID4_old){
-        if(Alarm_ID4!=Alarm_ID4_old & Alarm_ID4==true ){
-        fn_sql_alarm_insert(4, "ĐẠT GIỚI HẠN DƯỚI");}
-        fn_Alarm_Show();
-    } if(Alarm_ID4 == false & Alarm_ID4 != Alarm_ID4_old) {
-        fn_sql_alarm_ack(4);
-    }
-    Alarm_ID4_old = Alarm_ID4;
-
-    if (Alarm_ID5 && !Alarm_ID5_old){
-        if(Alarm_ID5!=Alarm_ID5_old & Alarm_ID5==true ){
-        fn_sql_alarm_insert(5, "PHẠM VI GÓC QUAY TỪ -200 ĐẾN 160 ĐỘ");}
-        fn_Alarm_Show();
-    } if(Alarm_ID5 == false & Alarm_ID5 != Alarm_ID5_old) {
-        fn_sql_alarm_ack(5);
-    }
-    Alarm_ID5_old = Alarm_ID5;
-
-    if (Alarm_ID6 && !Alarm_ID6_old){
-        if(Alarm_ID6!=Alarm_ID6_old & Alarm_ID6==true ){
-        fn_sql_alarm_insert(6, "HỆ CHƯA CHUẨN TẦNG, HÃY NHẤN CHUẨN");}
-        fn_Alarm_Show();
-    } if(Alarm_ID6 == false & Alarm_ID6 != Alarm_ID6_old) {
-        fn_sql_alarm_ack(6);
-    }
-    Alarm_ID6_old = Alarm_ID6;
-
-    if (Alarm_ID7 && !Alarm_ID7_old){
-        if(Alarm_ID7!=Alarm_ID7_old & Alarm_ID7==true ){
-        fn_sql_alarm_insert(7, "M3 ĐANG CHƯA ĐẠT GIỚI HẠNG TRONG");}
-        fn_Alarm_Show();
-    } if(Alarm_ID7 == false & Alarm_ID7 != Alarm_ID7_old) {
-        fn_sql_alarm_ack(7);
-    }
-    Alarm_ID7_old = Alarm_ID7;
-
-    if (Alarm_ID8 && !Alarm_ID8_old){
-        if(Alarm_ID8!=Alarm_ID8_old & Alarm_ID8==true ){
-        fn_sql_alarm_insert(8, "HỆ CHƯA CHUẨN VỊ TRÍ");}
-        fn_Alarm_Show();
-    } if(Alarm_ID8 == false & Alarm_ID8 != Alarm_ID8_old) {
-        fn_sql_alarm_ack(8);
-    }
-    Alarm_ID8_old = Alarm_ID8;
-
-    if (Alarm_ID9 && !Alarm_ID9_old){
-        if(Alarm_ID9!=Alarm_ID9_old & Alarm_ID9==true ){
-        fn_sql_alarm_insert(9, "ĐÃ CÓ XE, KHÔNG THỂ GỬI THÊM XE");}
-        fn_Alarm_Show();
-    } if(Alarm_ID9 == false & Alarm_ID9 != Alarm_ID9_old) {
-        fn_sql_alarm_ack(9);
-    }
-    Alarm_ID9_old = Alarm_ID9;
-}
-
-// Đọc dữ liệu Cảnh báo
-function fn_Alarm_Show(){
-    io.on("connection", function(socket){
-        socket.on("msg_Alarm_Show", function(data)
-        {
-            var sqltable_Name = "alarm";
-            var query = "SELECT * FROM " + sqltable_Name + " WHERE Status = 'I' order by Date_time desc;";
-            sqlcon.query(query, function(err, results, fields) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    const objectifyRawPacket = row => ({...row});
-                    const convertedResponse = results.map(objectifyRawPacket);
-                    socket.emit('Alarm_Show', convertedResponse);
-                }
-            });
-        });
-    });
-}
-
 
 
 // /////////////////////////////// BÁO CÁO EXCEL ///////////////////////////////
