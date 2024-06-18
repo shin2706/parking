@@ -21,6 +21,16 @@ function fn_IOFieldDataShow(tag, IOField, tofix){
     });
 }
 
+function fn_IOFieldDataShow3(tag, IOField){
+    var tzset = (new Date()).getTimezoneOffset() * 60000;
+    socket.on(tag,function(data){
+        let dateh = Date.parse(data);
+        let datej = new Date(dateh);
+        timeh = (new Date(datej - tzset)).toISOString().slice(0, -1).replace("T"," ").replace(".000"," ");
+        document.getElementById(IOField).value = timeh;
+    });
+}
+
 function fn_IOFieldDataShow2(tag, IOField){
     socket.on(tag,function(data){
         if(data == 0){
