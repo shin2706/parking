@@ -513,8 +513,8 @@ var mysql = require('mysql');
 var sqlcon = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "123456",
-  database: "SQL_PLC",
+  password: "142857@@@f2",
+  database: "sql_plc",
   dateStrings:true // Hiển thị không có T và Z
 });
 
@@ -524,7 +524,7 @@ function fn_SQLSearch(){
     io.on("connection", function(socket){
         socket.on("msg_SQL_Show", function(data)
         {
-            var sqltable_Name = "parking_auto";
+            var sqltable_Name = "parking";
             var queryy1 = "SELECT * FROM " + sqltable_Name + ";"
             sqlcon.query(queryy1, function(err, results, fields) {
                 if (err) {
@@ -546,7 +546,7 @@ function fn_SQLSearch_KHTT(){
     io.on("connection", function(socket){
         socket.on("msg_SQL_KHTT", function(data)
         {
-            var sqltable_Name = "parking_auto";
+            var sqltable_Name = "parking";
             var dt_col_Name = "Member";  // Tên cột thời gian
             var queryy1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name +  "='Khách hàng thân thiết';";
             sqlcon.query(queryy1, function(err, results, fields) {
@@ -590,7 +590,7 @@ function fn_SQLSearch_ByTime(){
             var timeE1 = "'" + formattedDatetime2 + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Time_In";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -634,7 +634,7 @@ function fn_SQLSearch_ByTime_In1(){
             var timeE1 = "'" + (new Date(timeE - tzoffset)).toISOString().slice(0, -1).replace("T"," ") + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Time_In";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -669,7 +669,7 @@ function fn_SQLSearch_ByTime_In(){
             var timeE1 = "'" + (new Date(timeE - tzoffset)).toISOString().slice(0, -1).replace("T"," ") + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Time_In";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -703,7 +703,7 @@ function fn_SQLSearch_ByTime_Out(){
             var timeE1 = "'" + (new Date(timeE - tzoffset)).toISOString().slice(0, -1).replace("T"," ") + "'";
             var timeR = timeS1 + "AND" + timeE1; // Khoảng thời gian tìm kiếm (Time Range)
 
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Time_Out";  // Tên cột thời gian
 
             var Query1 = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + " BETWEEN ";
@@ -729,7 +729,7 @@ function fn_SQLSearch_ByNum_Car(){
         socket.on("msg_SQL_ByNum_Car", function(data)
         {
             var Numcar = data;
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Num";  // Tên cột thời gian
 
             var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='" + Numcar + "';";
@@ -754,7 +754,7 @@ function fn_SQLSearch_ByColor_Car(){
         socket.on("msg_SQL_ByColor_Car", function(data)
         {
             var Colorcar = data;
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Color";  // Tên cột thời gian
 
             var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='" + Colorcar + "';";
@@ -779,7 +779,7 @@ function fn_SQLSearch_ByPosition_Car(){
         socket.on("msg_SQL_ByPosition_Car", function(data)
         {
             var Positioncar = data;
-            var sqltable_Name = "parking_auto"; // Tên bảng
+            var sqltable_Name = "parking"; // Tên bảng
             var dt_col_Name = "Position";  // Tên cột thời gian
 
             var Query = "SELECT * FROM " + sqltable_Name + " WHERE "+ dt_col_Name + "='" + Positioncar + "';";
